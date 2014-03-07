@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block body %}
+  <h1 class="text-center">The Kevin Crane</h1>
+  <p class="lead text-center">Use this document as a way to quickly start any new project.<br>
+    All you get is this text and a mostly barebones HTML document.</p>
+
+  <div class="well">
+    <h1>Posts</h1>
+    <hr/>
+    {% for post in posts %}
+      <h3>{{ post.title }}</h3>
+      <p>{{ post.body }}</p>
+      <h6>Created {{ moment(post.created).calendar() }}</h6>
+      <hr/>
+    {% endfor %}
+  </div>
+{% endblock %}

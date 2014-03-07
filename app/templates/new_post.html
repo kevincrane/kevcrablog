@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}WTForms Example{% endblock %}
+
+{% block body %}
+  <form role="form" action="" method="post">
+    {{ form.hidden_tag() }}
+    <div class="control-group{% if form.errors.title %} error{% endif %}">
+      {{ form.title.label }}
+      {{ form.title(class_="form-control") }}
+    </div>
+
+    <div class="control-group">
+      {{ form.body.label }}
+      {{ form.body(class="form-control") }}
+      {% for error in form.errors.body %}
+        <span class="help-inline">[{{ error }}]</span><br>
+      {% endfor %}
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+{% endblock %}

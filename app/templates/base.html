@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% if title %}
+    <title>{{ title }} - The Kevin Crane</title>
+  {% else %}
+    <title>The Kevin Crane</title>
+  {% endif %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="{{ url_for('static', filename='css/vendor/bootstrap.min.css') }}" rel="stylesheet" media="screen">
+  <link href="{{ url_for('static', filename='css/vendor/helper.css') }}" rel="stylesheet" media="screen">
+  <link href="{{ url_for('static', filename='css/vendor/typelate.css') }}" rel="stylesheet" media="screen">
+  <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet" media="screen">
+
+  <script src="{{ url_for('static', filename='js/vendor/bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/vendor/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/vendor/modernizr.min.js') }}"></script>
+  {{ moment.include_moment() }}
+</head>
+
+<body>
+<!-- Bootstrap Navbar -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="#">Appname</a>
+  </div>
+  <!-- Navbar Tabs -->
+  <div class="collapse navbar-collapse">
+    <ul class="nav navbar-nav">
+      <li><a href="{{ url_for('.home') }}">Home</a></li>
+      <li><a href="{{ url_for('.newpost') }}">WTForms Example</a></li>
+    </ul>
+  </div>
+  <!--/.nav-collapse -->
+</nav>
+
+<div class="container">
+  {% include 'flash.html' %}
+
+  {% block body %}
+  {% endblock %}
+</div>
+
+{% block js %}
+{% endblock %}
+</body>
+</html>
