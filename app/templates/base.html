@@ -10,14 +10,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link href="{{ url_for('static', filename='css/vendor/bootstrap.min.css') }}" rel="stylesheet" media="screen">
-  <link href="{{ url_for('static', filename='css/vendor/helper.css') }}" rel="stylesheet" media="screen">
-  <link href="{{ url_for('static', filename='css/vendor/typelate.css') }}" rel="stylesheet" media="screen">
   <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet" media="screen">
 
-  <script src="{{ url_for('static', filename='js/vendor/bootstrap.min.js') }}"></script>
   <script src="{{ url_for('static', filename='js/vendor/jquery.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/vendor/modernizr.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/vendor/bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/vendor/showdown.min.js') }}"></script>
   {{ moment.include_moment() }}
+
+  <link rel="stylesheet" href="http://yandex.st/highlightjs/8.0/styles/default.min.css">
+  <!-- highlight.js -->
+  <script src="http://yandex.st/highlightjs/8.0/highlight.min.js"></script>
+  <!-- TODO: choose a style/theme for highlight.js -->
 </head>
 
 <body>
@@ -34,7 +37,7 @@
   <!-- Navbar Tabs -->
   <div class="collapse navbar-collapse">
     <ul class="nav navbar-nav">
-      <li><a href="{{ url_for('.home') }}">Home</a></li>
+      <li><a href="{{ url_for('.index') }}">Home</a></li>
       <li><a href="{{ url_for('.newpost') }}">WTForms Example</a></li>
     </ul>
   </div>

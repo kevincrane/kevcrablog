@@ -1,5 +1,4 @@
-"""
-    :core.py
+""" :core.py
     Contains core objects that are used
     throughout the application
 """

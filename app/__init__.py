@@ -2,17 +2,21 @@
 import os
 
 from flask import Flask
-# from flask.ext.cache import Cache     # TODO add caching
-from app.core import db
+from flask.ext.admin import Admin
 from flask.ext.debugtoolbar import DebugToolbarExtension
 from flask.ext.moment import Moment
+
+from app.core import db
+from app.admin import AdminMain, PostAdminView
 from app.kevcrablog import views
 
+# from flask.ext.cache import Cache     # TODO add caching
 # Setup flask cache
 # cache = Cache()       # TODO add caching
 
 # init flask assets
 # assets_env = Environment()    # TODO assets?
+from app.kevcrablog.models import Post
 
 
 def create_app(config_file, env="dev"):
@@ -38,6 +42,11 @@ def create_app(config_file, env="dev"):
 
     # Init moment.js
     moment = Moment(app)
+
+    # Init Admin page
+    admin = Admin(app)
+    # admin.add_view(AdminMain(name="Admin"))
+    admin.add_view(PostAdminView())
 
     # Init DB
     db.init_app(app)

@@ -12,7 +12,7 @@ blog = Blueprint('blog', __name__)
 @blog.route('/index', methods=['GET', 'POST'])
 @blog.route('/index/<int:page>', methods=['GET', 'POST'])
 # @cache.cached(timeout=1000)       # TODO add cache
-def home(page=1):
+def index(page=1):
     # posts = Post.all().paginate(page, Config.POSTS_PER_PAGE, False) #TODO pagination
     posts = Post.all()
     return render_template('index.html',
@@ -28,8 +28,8 @@ def newpost():
         db.session.add(post)
         db.session.commit()
         flash('Your post is now live!')
-        return redirect(url_for('.home'))
+        return redirect(url_for('.index'))
     elif request.method == 'POST':
         flash("There was a problem submitting the form!", 'danger')
-    return render_template('new_post.html',
+    return render_template('admin/new_post.html',
                            form=form)
