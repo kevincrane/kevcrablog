@@ -5,3 +5,13 @@
 .text-center {
     text-align: center;
 }
+
+/* Post Preview Style */
+.post-preview-title {
+    text-decoration: underline;
+}
+
+.post-preview-body {
+    padding-left: 5%;
+    padding-right: 5%;
+}

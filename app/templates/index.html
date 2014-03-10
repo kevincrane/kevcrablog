@@ -8,14 +8,33 @@
   <div class="row">
     <div class="col-md-9">
       <div class="well">
-        <h1>Posts</h1>
-        <hr/>
-        {% for post in posts %}
-          <h3>{{ post.title }}</h3>
-          <p>{{ post.body }}</p>
-          <h6>Created {{ moment(post.created).calendar() }}</h6>
+        <div id="post-preview-list">
+          <h1>Posts</h1>
           <hr/>
-        {% endfor %}
+          {% if posts %}
+            {% for post in posts %}
+              <!-- Generate a preview of each blog post -->
+              <h2 class="post-preview-title"><a href="#">{{ post.title }}</a></h2>
+              <p class="post-preview-body">{{ post.body|safe|truncate(255) }}</p>
+              <a class="post-preview-read" href="#">Read More!</a>
+              <h6 class="post-preview-created">Created <i>{{ moment(post.created).calendar() }}</i></h6>
+              <hr/>
+            {% endfor %}
+            <script type="text/javascript">
+              $(document).ready(function () {
+                var converter = new Showdown.converter();
+                $(".post-preview-body").each(function () {
+                  $(this).html(converter.makeHtml($(this).html()));
+                });
+                $('pre code').each(function (i, e) {
+                  hljs.highlightBlock(e)
+                });
+              });
+            </script>
+          {% else %}
+            <h3 class="text-warning">No blog posts found. :(</h3>
+          {% endif %}
+        </div>
       </div>
     </div>
 

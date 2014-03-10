@@ -6,8 +6,8 @@ MARKDOWN_PRE_HTML = '''
 MARKDOWN_POST_HTML = '''
 </div>
 <script type="text/javascript">
-    converter = new Showdown.converter();
     $(document).ready(function() {
+        converter = new Showdown.converter();
         updateLivePost = function() {
             inputText = $("#markdown-input").val()
             $("#markdown-preview").html(converter.makeHtml(inputText));

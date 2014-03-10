@@ -23,7 +23,8 @@ def index(page=1):
 def newpost():
     form = PostForm()
 
-    if form.validate_on_submit():
+    # Validate the form and ensure this Post title doesn't already exist
+    if form.validate_on_submit() and Post.query.filter_by(title=form.title.data).first() == None:
         post = Post(title=form.title.data, body=form.body.data, author_id=None)
         db.session.add(post)
         db.session.commit()
