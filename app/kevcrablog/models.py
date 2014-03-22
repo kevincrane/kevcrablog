@@ -13,11 +13,12 @@ class Post(db.Model):
     body = db.Column(db.Text)
     created = db.Column(db.DateTime, default=datetime.utcnow())
     author_id = db.Column(db.Integer, db.ForeignKey(User.id))
+    # slug = db.Column(db.Unicode(255))
     # TODO: tags for each post?
 
     @classmethod
-    def all(cls):
-        return Post.query.order_by(desc(Post.created)).all()
+    def query_all(cls):
+        return Post.query.order_by(desc(Post.created))
 
     def __repr__(self):
         return '<Post %s' % self.title

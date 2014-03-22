@@ -18,3 +18,4 @@ class PostAdminView(ModelView):
         super(PostAdminView, self).__init__(Post, db.session)
 
     can_create = False  # Need to go to Markdown editor to create new pages.
+    column_default_sort = ('created', True)

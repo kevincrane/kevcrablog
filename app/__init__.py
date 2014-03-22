@@ -1,6 +1,4 @@
-#! ../env/bin/python
-import os
-
+#!/usr/bin/env python
 from flask import Flask
 from flask.ext.admin import Admin
 from flask.ext.debugtoolbar import DebugToolbarExtension
@@ -19,20 +17,20 @@ from app.kevcrablog import views
 from app.kevcrablog.models import Post
 
 
-def create_app(config_file, env="dev"):
+def create_app(config='dev'):
     """ Flask application factory
-    :param config_file: filename/classpath of config file
-    :param env: type of app to build, either "prod" or "dev"
+    :param config: type of app to build, either "prod" or "dev"
     """
     # Create flask application
     app = Flask(__name__)
-    app.config.from_object(config_file)
-    app.config['ENV'] = env
+    app.config.from_object('settings')
+    app.config['ENV'] = config
+    app.jinja_env.trim_blocks = True
 
     # Debug toolbar (when debug=true)
     debug_toolbar = DebugToolbarExtension(app)
-    app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
     app.config['DEBUG_TB_PROFILER_ENABLED'] = True
+    app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
     # Register Blueprints
     app.register_blueprint(views.blog)
@@ -62,6 +60,5 @@ def create_app(config_file, env="dev"):
 
 
 if __name__ == '__main__':
-    env = os.environ.get('APP_ENV', 'dev')     # TODO change this to be easier?
-    app = create_app('app.settings.%sConfig' % env.capitalize(), env=env)
+    app = create_app(config='dev')
     app.run()

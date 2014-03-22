@@ -1,34 +1,25 @@
 #!/usr/bin/env python
 import os
-
+from flask.ext.migrate import Migrate, MigrateCommand
 from flask.ext.script import Manager, Server
-from app import create_app
-from app.kevcrablog.models import db, User
+from app import create_app, db
+from app.kevcrablog import models
 
+
+description_msg = "The Kevin Crane personal site (for prod: export APP_ENV=prod)"
 
 env = os.environ.get('APP_ENV', 'dev')
-app = create_app('app.settings.%sConfig' % env.capitalize(), env=env)
+app = create_app(env)
 
-manager = Manager(app)
-manager.add_command("server", Server())     # TODO: prod server? look at Server code in this class <--Server()
-
-#TODO: MigrateCommand
+manager = Manager(app, description=description_msg, with_default_commands=False)
+manager.add_command('server', Server(use_debugger=app.debug))
+manager.add_command('db', MigrateCommand)
+migrate = Migrate(app, db)
 
 
 @manager.shell
 def make_shell_context():
-    """ Creates a python REPL with several default imports
-    in the context of the app
-    """
-    return dict(app=app, User=User)
-
-
-@manager.command
-def createdb():
-    """ Creates a database with all of the tables defined in
-    your Alchemy models
-    """
-    db.create_all()
+    return dict(app=app, db=db, models=models)
 
 
 if __name__ == "__main__":
