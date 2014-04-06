@@ -14,7 +14,6 @@ blog = Blueprint('blog', __name__)
 # @cache.cached(timeout=1000)       # TODO add cache
 def index(page=1):
     posts = Post.query_all().paginate(page, POSTS_PER_PAGE, False)  # TODO pagination
-    # posts = Post.all()
     return render_template('index.html',
                            posts=posts)
 

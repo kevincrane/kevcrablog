@@ -2,6 +2,7 @@
 from flask import Flask
 from flask.ext.admin import Admin
 from flask.ext.debugtoolbar import DebugToolbarExtension
+from flask.ext.misaka import Misaka
 from flask.ext.moment import Moment
 
 from app.core import db
@@ -38,15 +39,17 @@ def create_app(config='dev'):
     # Init the cache
     # cache.init_app(app)       # TODO add caching
 
-    # Init moment.js
-    moment = Moment(app)
+    Moment(app)         # moment.js
+    Misaka(app, autolink=True, # Misaka Markdown
+           fenced_code=True, lax_html=True, strikethrough=True,
+           superscript=True, tables=True, wrap=True)
 
     # Init Admin page
     admin = Admin(app)
     # admin.add_view(AdminMain(name="Admin"))
     admin.add_view(PostAdminView())
 
-    # Init DB
+    # Initialize DB
     db.init_app(app)
 
     # Import and register the different asset bundles

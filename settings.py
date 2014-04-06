@@ -12,7 +12,7 @@ POSTS_PER_PAGE = 3                      # Pagination
 
 
 ### Prod Settings ###
-if os.environ.get('APP_ENV').lower == 'prod':   # TODO: if you ever think of something better than env vars...plz
+if os.environ.get('APP_ENV') == 'prod':   # TODO: if you ever think of something better than env vars...plz
     print "Config: using 'prod' settings..."
     DEBUG = False
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASE_DIR, 'app.db')    # TODO upgrade to Postgres

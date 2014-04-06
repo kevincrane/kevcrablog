@@ -16,17 +16,13 @@
             {% for post in posts.items %}
               <!-- Generate a preview of each blog post -->
               <h2 class="post-preview-title"><a href="#">{{ post.title }}</a></h2>
-              <p class="post-preview-body">{{ post.body|safe|truncate(255) }}</p>
+              <p class="post-preview-body">{{ post.body|safe|truncate(255)|markdown }}</p>
               <a class="post-preview-read" href="#">Read More!</a>
               <h6 class="post-preview-created">Created <i>{{ moment(post.created).calendar() }}</i></h6>
               <hr/>
             {% endfor %}
             <script type="text/javascript">
               $(document).ready(function () {
-                var converter = new Showdown.converter();
-                $(".post-preview-body").each(function () {
-                  $(this).html(converter.makeHtml($(this).html()));
-                });
                 $('pre code').each(function (i, e) {
                   hljs.highlightBlock(e)
                 });
@@ -47,7 +43,7 @@
               {% endif %}
             </ul>
           {% else %}
-            <h3>No blog posts found. :(</h3>
+            <h3>No blog posts found :(</h3>
           {% endif %}
         </div>
       </div>
