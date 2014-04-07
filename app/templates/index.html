@@ -15,9 +15,23 @@
           {% if posts and posts.items %}
             {% for post in posts.items %}
               <!-- Generate a preview of each blog post -->
-              <h2 class="post-preview-title"><a href="#">{{ post.title }}</a></h2>
+              <h2 class="post-preview-title">
+                {% if posts.page > 1 %}   {# Don't add prev_page on first page #}
+                  <a href="{{ url_for('.view_post', post_id=post.id, slug=post.slug, prev_page=posts.page) }}">
+                {% else %}
+                  <a href="{{ url_for('.view_post', post_id=post.id, slug=post.slug) }}">
+                {% endif %}
+                {{ post.title }}
+                </a>
+              </h2>
               <p class="post-preview-body">{{ post.body|safe|truncate(255)|markdown }}</p>
-              <a class="post-preview-read" href="#">Read More!</a>
+              {% if posts.page > 1 %}
+                <a class="post-preview-read" href="{{ url_for('.view_post', post_id=post.id,
+                  slug=post.slug, prev_page=posts.page) }}">Read More!</a>
+              {% else %}
+                <a class="post-preview-read" href="{{ url_for('.view_post', post_id=post.id, slug=post.slug) }}">Read
+                  More!</a>
+              {% endif %}
               <h6 class="post-preview-created">Created <i>{{ moment(post.created).calendar() }}</i></h6>
               <hr/>
             {% endfor %}
@@ -30,18 +44,10 @@
             </script>
 
             <!-- Page Selector -->
-            <ul class="pager">
-              {% if posts.has_prev %}
-                <li class="previous"><a href="{{ url_for('.index', page = posts.prev_num) }}">Newer posts</a></li>
-              {% else %}
-                <li class="previous disabled"><a href="#">Newer posts</a></li>
-              {% endif %}
-              {% if posts.has_next %}
-                <li class="next"><a href="{{ url_for('.index', page = posts.next_num) }}">Older posts</a></li>
-              {% else %}
-                <li class="next disabled"><a href="#">Older posts</a></li>
-              {% endif %}
-            </ul>
+            <div class="text-center">
+              {{ pagination.links|safe }}
+              {{ pagination.info|safe }}
+            </div>
           {% else %}
             <h3>No blog posts found :(</h3>
           {% endif %}
