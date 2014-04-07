@@ -25,8 +25,24 @@
     </form>
   </div>
   <div class="col-md-6">
-    <div id="markdown-preview">
-      {# NOTE: jQuery update code lives in kevcrablog/__init__.py #}
+    <div id="markdown-preview" class="markdown">
     </div>
   </div>
+{% endblock %}
+
+{% block js %}
+  <script type="text/javascript">
+    $(document).ready(function () {
+      converter = new Showdown.converter();
+      updateLivePost = function () {
+        inputText = $("#markdown-input").val()
+        $("#markdown-preview").html(converter.makeHtml(inputText));
+        $('pre code').each(function (i, e) {
+          hljs.highlightBlock(e)
+        });
+      };
+      updateLivePost();
+      $("#markdown-input").on("keyup", updateLivePost);
+    });
+  </script>
 {% endblock %}

@@ -2,7 +2,6 @@ from flask_wtf import Form
 from wtforms import TextField, TextAreaField
 from wtforms import validators
 from wtforms.widgets import TextArea, HTMLString
-from app.kevcrablog import MARKDOWN_PRE_HTML, MARKDOWN_POST_HTML
 
 
 class MarkdownWidget(TextArea):
@@ -13,7 +12,7 @@ class MarkdownWidget(TextArea):
 
     def __call__(self, field, **kwargs):
         html = super(MarkdownWidget, self).__call__(field, id='markdown-input', **kwargs)
-        return HTMLString(MARKDOWN_PRE_HTML + html + MARKDOWN_POST_HTML)
+        return HTMLString(html)
 
 
 class PostForm(Form):

@@ -35,13 +35,6 @@
               <h6 class="post-preview-created">Created <i>{{ moment(post.created).calendar() }}</i></h6>
               <hr/>
             {% endfor %}
-            <script type="text/javascript">
-              $(document).ready(function () {
-                $('pre code').each(function (i, e) {
-                  hljs.highlightBlock(e)
-                });
-              });
-            </script>
 
             <!-- Page Selector -->
             <div class="text-center">
@@ -63,4 +56,14 @@
       </ul>
     </div>
   </div>
+{% endblock %}
+
+{% block js %}
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $('pre code').each(function (i, e) {
+        hljs.highlightBlock(e)
+      });
+    });
+  </script>
 {% endblock %}
