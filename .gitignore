@@ -14,3 +14,7 @@ nosetests.xml
 
 # Translations
 *.mo
+
+# App-specific
+app.db
+migrations

@@ -10,17 +10,19 @@ blog = Blueprint('blog', __name__)
 
 
 @blog.route('/')
-@blog.route('/index', methods=['GET', 'POST'])
+@blog.route('/index/', methods=['GET', 'POST'])
 @blog.route('/index/<int:page>', methods=['GET', 'POST'])
 # @cache.cached(timeout=1000)       # TODO add cache
 def index(page=1):
     """ Display the main page of the blog with the most recent blog posts
         paginated and displayed
     """
-    posts = Post.query_all().paginate(page, POSTS_PER_PAGE, False)  # TODO pagination
-    pagination = Pagination(page=page, total=posts.total, per_page=POSTS_PER_PAGE, record_name='posts', bs_version=3)
-    return render_template('index.html',
-                           posts=posts, pagination=pagination)
+    posts = Post.query_all().paginate(page, POSTS_PER_PAGE, False)
+    recent_posts = Post.query_all().limit(5)
+    pagination = Pagination(page=page, total=posts.total, per_page=POSTS_PER_PAGE,
+                            record_name='posts', bs_version=3)
+    return render_template('index.html', posts=posts, recent_posts=recent_posts,
+                           pagination=pagination)
 
 
 @blog.route('/post/<int:post_id>/<slug>')
@@ -34,7 +36,7 @@ def view_post(post_id, slug):
     return render_template('post.html', post=post, prev_page=prev_page)
 
 
-@blog.route('/newpost', methods=['GET', 'POST'])
+@blog.route('/newpost/', methods=['GET', 'POST'])
 def newpost():
     """ Display the 'new post' live text editor form
     """

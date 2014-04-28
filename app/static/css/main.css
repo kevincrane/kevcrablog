@@ -6,6 +6,16 @@
     text-align: center;
 }
 
+/* Index Style */
+.list-group {
+    padding-left: 0;
+    margin-bottom: 20px;
+}
+
+.list-group-item {
+    padding: 5px 10px;
+}
+
 /* Post Preview Style */
 .post-preview-title {
     text-decoration: underline;

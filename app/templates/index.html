@@ -48,7 +48,16 @@
       </div>
     </div>
 
+    <!-- Side bar menu -->
     <div class="col-md-3">
+      <div class="list-group">
+        <h4 class="list-group-item-heading">Recent Posts</h4>
+        {% for recent_post in recent_posts %}
+          <a class="list-group-item" href="{{ url_for('.view_post', post_id=recent_post.id, slug=recent_post.slug) }}">
+            <b>{{ recent_post.title }}</b> <em class="pull-right">({{ recent_post.created.strftime("%b/%d/%y") }})</em>
+          </a>
+        {% endfor %}
+      </div>
       <ul class="nav nav-pills nav-stacked">
         <li class="navbar-header">Menu</li>
         <li class="active"><a href="{{ url_for(".index") }}">A Link</a></li>
