@@ -19,10 +19,11 @@ def index(page=1):
     """
     posts = Post.query_all().paginate(page, POSTS_PER_PAGE, False)
     recent_posts = Post.query_all().limit(5)
+    grouped_by_month = Post.group_by_year_month()
     pagination = Pagination(page=page, total=posts.total, per_page=POSTS_PER_PAGE,
                             record_name='posts', bs_version=3)
     return render_template('index.html', posts=posts, recent_posts=recent_posts,
-                           pagination=pagination)
+                           grouped_by_month=grouped_by_month, pagination=pagination)
 
 
 @blog.route('/post/<int:post_id>/<slug>')

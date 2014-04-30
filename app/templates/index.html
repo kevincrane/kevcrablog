@@ -50,6 +50,7 @@
 
     <!-- Side bar menu -->
     <div class="col-md-3">
+      <!-- Recent Posts -->
       <div class="list-group">
         <h4 class="list-group-item-heading">Recent Posts</h4>
         {% for recent_post in recent_posts %}
@@ -58,10 +59,37 @@
           </a>
         {% endfor %}
       </div>
-      <ul class="nav nav-pills nav-stacked">
-        <li class="navbar-header">Menu</li>
-        <li class="active"><a href="{{ url_for(".index") }}">A Link</a></li>
-        <li><a href="{{ url_for(".index") }}">Another Link</a></li>
+      <!-- Posts By Month -->
+      <ul class="nav nav-list nav-stacked">
+        <li class="nav-header">All Posts</li>
+        {% for (year, month) in grouped_by_month %}
+          <div class="posts-by-month">
+            <a href="#group-{{ year }}-{{ month }}" data-toggle="collapse" class="active">
+              <span class="glyphicon glyphicon-chevron-right" id="group-arrow-{{ year }}-{{ month }}"></span>
+              {{ month }}/{{ year }} <span class="badge">{{ grouped_by_month[(year, month)]|length }}</span>
+            </a>
+
+            <div id="group-{{ year }}-{{ month }}" class="collapse out">
+              <ul>
+                {% for post in grouped_by_month[(year, month)] %}
+                  <li>{{ post.title }}</li>
+                  HEY KEVIN CREATE LINKS TO ARTICLES HERE; ALSO FILTER THE SEARCH TO ONLY RETURN
+                  TITLES, DATES, STUBS; ALSO, MOVE SIDEBAR TO base.html?
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+          <script>
+            $(document).ready(function () {
+              $('#group-{{ year }}-{{ month }}').on('show.bs.collapse', function () {
+                $("#group-arrow-{{ year }}-{{ month }}").removeClass("glyphicon-chevron-right").addClass("glyphicon-chevron-down");
+              });
+              $('#group-{{ year }}-{{ month }}').on('hide.bs.collapse', function () {
+                $("#group-arrow-{{ year }}-{{ month }}").addClass("glyphicon-chevron-right").removeClass("glyphicon-chevron-down");
+              });
+            });
+          </script>
+        {% endfor %}
       </ul>
     </div>
   </div>
