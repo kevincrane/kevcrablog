@@ -1,3 +1,4 @@
+import calendar
 import collections
 from datetime import datetime
 from itertools import groupby
@@ -25,12 +26,15 @@ class Post(db.Model):
     @classmethod
     def group_by_year_month(cls):
         order_group = collections.OrderedDict()
-        posts = Post.query.order_by(desc(Post.created))
+        posts = Post.query.with_entities(Post.id, Post.title, Post.created).order_by(desc(Post.created))
         for ((year, month), grouped_posts) in groupby(posts, lambda x: (x.created.year, x.created.month)):
             grouped = []
             for post in grouped_posts:
-                grouped.append(post)
-            order_group[(year, month)] = grouped
+                slugged_post = post._asdict()
+                slugged_post['slug'] = slugify(post.title, '-')
+                grouped.append(slugged_post)
+
+            order_group[(year, calendar.month_name[month])] = grouped
         return order_group
 
     @property
