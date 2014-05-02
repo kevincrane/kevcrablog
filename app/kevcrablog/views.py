@@ -9,6 +9,15 @@ from settings import POSTS_PER_PAGE
 blog = Blueprint('blog', __name__)
 
 
+def sidebar():
+    """ Fetch a dict of information that should be used for each view
+        e.g. recent posts, posts by view used in base_blog.html
+    """
+    recent_posts = Post.query_all().limit(5)
+    grouped_by_month = Post.group_by_year_month()
+    return recent_posts, grouped_by_month
+
+
 @blog.route('/')
 @blog.route('/index/', methods=['GET', 'POST'])
 @blog.route('/index/<int:page>', methods=['GET', 'POST'])
@@ -18,12 +27,11 @@ def index(page=1):
         paginated and displayed
     """
     posts = Post.query_all().paginate(page, POSTS_PER_PAGE, False)
-    recent_posts = Post.query_all().limit(5)
-    grouped_by_month = Post.group_by_year_month()
     pagination = Pagination(page=page, total=posts.total, per_page=POSTS_PER_PAGE,
                             record_name='posts', bs_version=3)
-    return render_template('index.html', posts=posts, recent_posts=recent_posts,
-                           grouped_by_month=grouped_by_month, pagination=pagination)
+    recent, group_month = sidebar()
+    return render_template('index.html', posts=posts, pagination=pagination,
+                           recent_posts=recent, grouped_by_month=group_month)
 
 
 @blog.route('/post/<int:post_id>/<slug>')
@@ -34,7 +42,9 @@ def view_post(post_id, slug):
     if not post:
         return page_not_found(404)
     prev_page = request.args.get('prev_page', None)
-    return render_template('post.html', post=post, prev_page=prev_page)
+    recent, group_month = sidebar()
+    return render_template('post.html', post=post, prev_page=prev_page,
+                           recent_posts=recent, grouped_by_month=group_month)
 
 
 @blog.route('/newpost/', methods=['GET', 'POST'])

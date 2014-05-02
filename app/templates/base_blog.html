@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block body %}
+  {% block blog_header %}
+  {% endblock %}
+  <div class="row">
+    <div class="col-md-9">
+      {% block blog_main %}
+      {% endblock %}
+    </div>
+
+    <!-- Side bar menu -->
+    <div class="col-md-3">
+      <!-- Recent Posts -->
+      <div class="list-group">
+        <h4 class="list-group-item-heading">Recent Posts</h4>
+        {% for recent_post in recent_posts %}
+          <a class="list-group-item" href="{{ url_for('.view_post', post_id=recent_post.id, slug=recent_post.slug) }}">
+            <b>{{ recent_post.title }}</b> <em class="pull-right">({{ recent_post.created.strftime("%b/%d/%y") }})</em>
+          </a>
+        {% endfor %}
+      </div>
+
+      <!-- Posts By Month -->
+      <ul class="nav nav-list nav-stacked">
+        <li class="nav-header">All Posts</li>
+        {% for (year, month) in grouped_by_month %}
+          <div class="posts-by-month">
+            <a href="#group-{{ year }}-{{ month }}" data-toggle="collapse" class="active">
+              <span class="glyphicon glyphicon-chevron-right" id="group-arrow-{{ year }}-{{ month }}"></span>
+              {{ month }} {{ year }} <span class="badge">{{ grouped_by_month[(year, month)]|length }}</span>
+            </a>
+
+            <div id="group-{{ year }}-{{ month }}" class="collapse out">
+              <ul>
+                {% for post in grouped_by_month[(year, month)] %}
+                  <li>
+                    <a href="{{ url_for('.view_post', post_id=post.id, slug=post.slug) }}">
+                      {{ post.title }}
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+          <!-- TODO: make this jQuery smarter; tie it to a class rather than ID -->
+          <script>
+            $(document).ready(function () {
+              $('#group-{{ year }}-{{ month }}').on('show.bs.collapse', function () {
+                $("#group-arrow-{{ year }}-{{ month }}").removeClass("glyphicon-chevron-right").addClass("glyphicon-chevron-down");
+              });
+              $('#group-{{ year }}-{{ month }}').on('hide.bs.collapse', function () {
+                $("#group-arrow-{{ year }}-{{ month }}").addClass("glyphicon-chevron-right").removeClass("glyphicon-chevron-down");
+              });
+            });
+          </script>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+{% endblock %}

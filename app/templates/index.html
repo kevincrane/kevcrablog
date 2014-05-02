@@ -1,100 +1,49 @@
-{% extends "base.html" %}
+{% extends "base_blog.html" %}
 {% set active_page = "index" %}
 
-{% block body %}
+{% block blog_header %}
   <h1 class="text-center">The Kevin Crane</h1>
   <p class="lead text-center">Use this document as a way to quickly start any new project.<br>
     All you get is this text and a mostly barebones HTML document.</p>
+{% endblock %}
 
-  <div class="row">
-    <div class="col-md-9">
-      <div class="well">
-        <div id="post-preview-list">
-          <h1>Posts</h1>
-          <hr/>
-          {% if posts and posts.items %}
-            {% for post in posts.items %}
-              <!-- Generate a preview of each blog post -->
-              <h2 class="post-preview-title">
-                {% if posts.page > 1 %}   {# TODO: don't add all; Don't add prev_page on first page #}
-                  <a href="{{ url_for('.view_post', post_id=post.id, slug=post.slug, prev_page=posts.page) }}">
-                {% else %}
-                  <a href="{{ url_for('.view_post', post_id=post.id, slug=post.slug) }}">
-                {% endif %}
-                {{ post.title }}
-                </a>
-              </h2>
-              <p class="post-preview-body">{{ post.body|safe|truncate(255)|markdown }}</p>
-              {% if posts.page > 1 %}
-                <a class="post-preview-read" href="{{ url_for('.view_post', post_id=post.id,
-                  slug=post.slug, prev_page=posts.page) }}">Read More!</a>
-              {% else %}
-                <a class="post-preview-read" href="{{ url_for('.view_post', post_id=post.id, slug=post.slug) }}">Read
-                  More!</a>
-              {% endif %}
-              <h6 class="post-preview-created">Created <i>{{ moment(post.created).calendar() }}</i></h6>
-              <hr/>
-            {% endfor %}
-
-            <!-- Page Selector -->
-            <div class="text-center">
-              {{ pagination.links|safe }}
-              {{ pagination.info|safe }}
-            </div>
-          {% else %}
-            <h3>No blog posts found :(</h3>
-          {% endif %}
-        </div>
-      </div>
-    </div>
-
-    <!-- Side bar menu -->
-    <div class="col-md-3">
-      <!-- Recent Posts -->
-      <div class="list-group">
-        <h4 class="list-group-item-heading">Recent Posts</h4>
-        {% for recent_post in recent_posts %}
-          <a class="list-group-item" href="{{ url_for('.view_post', post_id=recent_post.id, slug=recent_post.slug) }}">
-            <b>{{ recent_post.title }}</b> <em class="pull-right">({{ recent_post.created.strftime("%b/%d/%y") }})</em>
-          </a>
-        {% endfor %}
-      </div>
-      <!-- Posts By Month -->
-      <ul class="nav nav-list nav-stacked">
-        <li class="nav-header">All Posts</li>
-        {% for (year, month) in grouped_by_month %}
-          <div class="posts-by-month">
-            <a href="#group-{{ year }}-{{ month }}" data-toggle="collapse" class="active">
-              <span class="glyphicon glyphicon-chevron-right" id="group-arrow-{{ year }}-{{ month }}"></span>
-              {{ month }} {{ year }} <span class="badge">{{ grouped_by_month[(year, month)]|length }}</span>
+{% block blog_main %}
+  <div class="well">
+    <div id="post-preview-list">
+      <h1>Posts</h1>
+      <hr/>
+      {% if posts and posts.items %}
+        {% for post in posts.items %}
+          <!-- Generate a preview of each blog post -->
+          <h2 class="post-preview-title">
+            {% if posts.page > 1 %}   {# TODO: don't add all; Don't add prev_page on first page #}
+              <a href="{{ url_for('.view_post', post_id=post.id, slug=post.slug, prev_page=posts.page) }}">
+            {% else %}
+              <a href="{{ url_for('.view_post', post_id=post.id, slug=post.slug) }}">
+            {% endif %}
+            {{ post.title }}
             </a>
-
-            <div id="group-{{ year }}-{{ month }}" class="collapse out">
-              <ul>
-                {% for post in grouped_by_month[(year, month)] %}
-                  <li>
-                    <a href="{{ url_for('.view_post', post_id=post.id, slug=post.slug) }}">
-                      {{ post.title }}
-                    </a>
-                    ALSO, MOVE SIDEBAR TO base.html?
-                  </li>
-                {% endfor %}
-              </ul>
-            </div>
-          </div>
-          <!-- TODO: make this jQuery smarter; tie it to a class rather than ID -->
-          <script>
-            $(document).ready(function () {
-              $('#group-{{ year }}-{{ month }}').on('show.bs.collapse', function () {
-                $("#group-arrow-{{ year }}-{{ month }}").removeClass("glyphicon-chevron-right").addClass("glyphicon-chevron-down");
-              });
-              $('#group-{{ year }}-{{ month }}').on('hide.bs.collapse', function () {
-                $("#group-arrow-{{ year }}-{{ month }}").addClass("glyphicon-chevron-right").removeClass("glyphicon-chevron-down");
-              });
-            });
-          </script>
+          </h2>
+          <p class="post-preview-body">{{ post.body|safe|truncate(255)|markdown }}</p>
+          {% if posts.page > 1 %}
+            <a class="post-preview-read" href="{{ url_for('.view_post', post_id=post.id,
+            slug=post.slug, prev_page=posts.page) }}">Read More!</a>
+          {% else %}
+            <a class="post-preview-read" href="{{ url_for('.view_post', post_id=post.id, slug=post.slug) }}">Read
+              More!</a>
+          {% endif %}
+          <h6 class="post-preview-created">Created <i>{{ moment(post.created).calendar() }}</i></h6>
+          <hr/>
         {% endfor %}
-      </ul>
+
+        <!-- Page Selector -->
+        <div class="text-center">
+          {{ pagination.links|safe }}
+          {{ pagination.info|safe }}
+        </div>
+      {% else %}
+        <h3>No blog posts found :(</h3>
+      {% endif %}
     </div>
   </div>
 {% endblock %}
