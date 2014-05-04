@@ -1,5 +1,6 @@
 {% set navigation_bar = [
     ('index', 'Home'),
+    ('about', 'About'),
     ('newpost', 'New Post')
 ] -%}
 
@@ -13,7 +14,6 @@
   </div>
   <!-- Navbar Tabs -->
   <span class="navbar-brand">The Kevin Crane</span>
-
   <div class="collapse navbar-collapse">
     <ul class="nav navbar-nav">
       {% for id, caption in navigation_bar %}
@@ -21,6 +21,17 @@
           <a href="{{ url_for('.' + id) }}">{{ caption|e }}</a>
         </li>
       {% endfor %}
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <a href="http://www.twitter.com/thekevincrane" class="navbar-social">
+        <i class="fa fa-twitter-square fa-inverse fa-3x"></i>
+      </a>
+      <a href="http://www.github.com/kevincrane" class="navbar-social">
+        <i class="fa fa-github-square fa-inverse fa-3x"></i>
+      </a>
+      <a href="https://www.linkedin.com/in/thekevincrane" class="navbar-social">
+        <i class="fa fa-linkedin-square fa-inverse fa-3x"></i>
+      </a>
     </ul>
   </div>
   <!--/.nav-collapse -->

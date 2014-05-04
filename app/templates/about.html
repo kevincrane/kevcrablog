@@ -1,0 +1,60 @@
+<!-- Extends base layout -->
+{% extends "base_blog.html" %}
+{% set active_page = "about" %}
+
+{% block blog_header %}
+  <h1 class="text-center">About <em>The Kevin Crane</em></h1>
+{% endblock %}
+
+{% block blog_main %}
+  <h3>About Kevin Crane</h3>
+  <ul>
+    <li>Currently works as a software engineer at Twitter, building cool shit for the storage infrastructure of the
+      site.
+    </li>
+    <li>Graduated from the <em>University of Southern California</em> in 2012 with a B.S. of Computer Science (Figt On,
+      Forever).
+    </li>
+    <li>Masters of Software Engineering from <em>Carnegie Mellon University</em> also, just for good measure.</li>
+    <li>Technology I love to work with:
+      <ul>
+        <li>Python, Java, C, Hadoop, Pig, cryptography, distributed systems, anything with Linux in it.</li>
+      </ul>
+    </li>
+    <li>I also like water polo, rock climbing, guitar, and long walks on the beach.</li>
+    <li>
+      Come find me here so we can be friends!
+      <ul>
+        <a href="http://www.twitter.com/thekevincrane" class="about-social">
+          <i class="fa fa-twitter"></i> I try to be amusing on Twitter.
+        </a><br/>
+        <a href="http://www.github.com/kevincrane" class="about-social">
+          <i class="fa fa-github"></i> I code things on GitHub.
+        </a><br/>
+        <a href="https://www.linkedin.com/in/thekevincrane" class="about-social">
+          <i class="fa fa-linkedin"></i> I pretend to be professional on LinkedIn.
+        </a>
+      </ul>
+    </li>
+  </ul>
+
+  <h3>About This Site</h3>
+  <ul>
+    <li>
+      Homemade, organic, all-natural website; built with "love".
+      <ul>
+        <li>Written in Python, powered using the Flask framework.</li>
+        <li>Other technical stuff to be added later.</li>
+        <li>View the source code for yourself <a href="https://github.com/kevincrane/kevcrablog">here on GitHub!</a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      Self-hosted with a Raspberry Pi.
+      <ul>
+        <li>Technical details...</li>
+        <li>No more paying GoDaddy $6/month to host a useless Wordpress site, woo!</li>
+      </ul>
+    </li>
+  </ul>
+{% endblock %}

@@ -47,6 +47,12 @@ def view_post(post_id, slug):
                            recent_posts=recent, grouped_by_month=group_month)
 
 
+@blog.route('/about')
+def about():
+    recent, group_month = sidebar()
+    return render_template('about.html', recent_posts=recent, grouped_by_month=group_month)
+
+
 @blog.route('/newpost/', methods=['GET', 'POST'])
 def newpost():
     """ Display the 'new post' live text editor form

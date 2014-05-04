@@ -16,6 +16,10 @@
     padding: 5px 10px;
 }
 
+.navbar-social {
+    padding: 4px : color : blue;
+}
+
 /* Post Preview Style */
 .post-preview-title {
     text-decoration: underline;
@@ -24,4 +28,10 @@
 .post-preview-body {
     padding-left: 5%;
     padding-right: 5%;
+}
+
+/* About Page */
+.about-social {
+    color: #373737;
+    text-decoration: no-underline;
 }
