@@ -1,44 +1,55 @@
-<!-- Extends base layout -->
-{% extends "base.html" %}
-{% set active_page = "newpost" -%}
+<!-- Extends base admin layout -->
+{% extends 'admin/master.html' %}
 
-{% block title %}WTForms Example{% endblock %}
+{% block title %}New Post{% endblock %}
+
+{% block head %}
+  <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" media="screen">
+{% endblock %}
 
 {% block body %}
   <div class="col-md-6">
     <form role="form" action="" method="post">
       {{ form.hidden_tag() }}
-      <div class="control-group{% if form.errors.title %} error{% endif %}">
+      <div class="form-group{% if form.errors.title %} has-error{% endif %}">
         {{ form.title.label }}
-        {{ form.title(class_="form-control") }}
+        {% for error in form.errors.title %}
+          <span class="text-danger">[{{ error }}]</span><br/>
+        {% endfor %}
+        {{ form.title(class="form-control", style="height: 25px") }}
       </div>
 
-      <div class="control-group">
+      <div class="form-group{% if form.errors.body %} has-error{% endif %}">
         {{ form.body.label }}
-        {{ form.body(class="form-control") }}
         {% for error in form.errors.body %}
-          <span class="help-inline">[{{ error }}]</span><br>
+          <span class="text-danger">[{{ error }}]</span><br/>
         {% endfor %}
+        {{ form.body(class="form-control", rows=20) }}
       </div>
+      <br/>
 
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>
   <div class="col-md-6">
+    <h1 id="markdown-preview-title"></h1>
+
     <div id="markdown-preview" class="markdown">
     </div>
   </div>
-{% endblock %}
 
-{% block js %}
+
+  <script src="{{ url_for('static', filename='js/vendor/jquery.min.js') }}"></script>
+  {% include 'macros/javascript.html' %}
   <script type="text/javascript">
     $(document).ready(function () {
-      converter = new Showdown.converter();
-      updateLivePost = function () {
-        inputText = $("#markdown-input").val()
+      var converter = new Showdown.converter();
+      var updateLivePost = function () {
+        var inputText = $("#markdown-input").val();
+        $("#markdown-preview-title").html($("#title").val());
         $("#markdown-preview").html(converter.makeHtml(inputText));
         $('pre code').each(function (i, e) {
-          hljs.highlightBlock(e)
+          hljs.highlightBlock(e);
         });
       };
       updateLivePost();

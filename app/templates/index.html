@@ -14,11 +14,7 @@
         {% for post in posts.items %}
           <!-- Generate a preview of each blog post -->
           <h2 class="post-preview-title">
-            {% if posts.page > 1 %}   {# TODO: don't add all; Don't add prev_page on first page #}
-              <a href="{{ url_for('.view_post', post_id=post.id, slug=post.slug, prev_page=posts.page) }}">
-            {% else %}
-              <a href="{{ url_for('.view_post', post_id=post.id, slug=post.slug) }}">
-            {% endif %}
+            <a href="{{ url_for('.view_post', post_id=post.id, slug=post.slug) }}">
             {{ post.title }}
             </a>
           </h2>

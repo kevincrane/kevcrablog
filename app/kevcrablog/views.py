@@ -1,7 +1,5 @@
-from flask import Blueprint, render_template, flash, redirect, request, url_for
+from flask import Blueprint, render_template
 from flask.ext.paginate import Pagination
-from app import db
-from app.kevcrablog.forms import PostForm
 from app.kevcrablog.models import Post
 from settings import POSTS_PER_PAGE
 
@@ -41,9 +39,8 @@ def view_post(post_id, slug):
     post = Post.query.get(post_id)
     if not post:
         return page_not_found(404)
-    prev_page = request.args.get('prev_page', None)
     recent, group_month = sidebar()
-    return render_template('post.html', post=post, prev_page=prev_page,
+    return render_template('post.html', post=post,
                            recent_posts=recent, grouped_by_month=group_month)
 
 
@@ -51,24 +48,6 @@ def view_post(post_id, slug):
 def about():
     recent, group_month = sidebar()
     return render_template('about.html', recent_posts=recent, grouped_by_month=group_month)
-
-
-@blog.route('/newpost/', methods=['GET', 'POST'])
-def newpost():
-    """ Display the 'new post' live text editor form
-    """
-    # Validate the form and ensure this Post title doesn't already exist
-    form = PostForm()
-    if form.validate_on_submit() and not Post.query.filter_by(title=form.title.data).first():
-        new_post = Post(title=form.title.data, body=form.body.data, author_id=None)
-        db.session.add(new_post)
-        db.session.commit()
-        flash('Your post is now live!', 'success')
-        return redirect(url_for('.index'))
-    elif request.method == 'POST':
-        flash("There was a problem submitting the form!", 'danger')
-    return render_template('admin/new_post.html',
-                           form=form)
 
 
 @blog.errorhandler(404)

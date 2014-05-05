@@ -1,12 +1,14 @@
 #!/usr/bin/env python
+import os
 from flask import Flask
 from flask.ext.admin import Admin
+from flask.ext.admin.contrib.fileadmin import FileAdmin
 from flask.ext.debugtoolbar import DebugToolbarExtension
 from flask.ext.misaka import Misaka
 from flask.ext.moment import Moment
 
 from app.core import db
-from app.admin import AdminMain, PostAdminView
+from app.admin import AdminMain, PostAdminView, NewPostView
 from app.kevcrablog import views
 
 # from flask.ext.cache import Cache     # TODO add caching
@@ -16,6 +18,7 @@ from app.kevcrablog import views
 # init flask assets
 # assets_env = Environment()    # TODO assets?
 from app.kevcrablog.models import Post
+from settings import BASE_DIR
 
 
 def create_app(config='dev'):
@@ -48,6 +51,9 @@ def create_app(config='dev'):
     admin = Admin(app)
     # admin.add_view(AdminMain(name="Admin"))
     admin.add_view(PostAdminView())
+    admin.add_view(NewPostView())
+    static_path = os.path.join(BASE_DIR, 'app', 'static')
+    admin.add_view(FileAdmin(static_path, '/static/', name='Static Files'))
 
     # Initialize DB
     db.init_app(app)
