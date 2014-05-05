@@ -10,6 +10,10 @@ SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASE_DIR, 'app.db')   # De
 
 POSTS_PER_PAGE = 3                      # Pagination
 
+# Flask-User settings
+USER_ENABLE_EMAIL = False
+USER_ENABLE_REGISTRATION = False    # Change this to true to add users again!
+
 
 ### Prod Settings ###
 if os.environ.get('APP_ENV') == 'prod':   # TODO: if you ever think of something better than env vars...plz

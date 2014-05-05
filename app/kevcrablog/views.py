@@ -37,7 +37,7 @@ def view_post(post_id, slug):
     """ Display a full new post, with comments and view count
     """
     post = Post.query.get(post_id)
-    if not post:
+    if not post or post.slug != slug:
         return page_not_found(404)
     recent, group_month = sidebar()
     return render_template('post.html', post=post,

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block body %}
+{% block content %}
   {% block blog_header %}
   {% endblock %}
   <div class="row">
@@ -15,7 +15,8 @@
       <div class="list-group">
         <h4 class="list-group-item-heading">Recent Posts</h4>
         {% for recent_post in recent_posts %}
-          <a class="list-group-item" href="{{ url_for('.view_post', post_id=recent_post.id, slug=recent_post.slug) }}">
+          <a class="list-group-item"
+             href="{{ url_for('blog.view_post', post_id=recent_post.id, slug=recent_post.slug) }}">
             <b>{{ recent_post.title }}</b> <em class="pull-right">({{ recent_post.created.strftime("%b/%d/%y") }})</em>
           </a>
         {% endfor %}
@@ -35,7 +36,7 @@
               <ul>
                 {% for post in grouped_by_month[(year, month)] %}
                   <li>
-                    <a href="{{ url_for('.view_post', post_id=post.id, slug=post.slug) }}">
+                    <a href="{{ url_for('blog.view_post', post_id=post.id, slug=post.slug) }}">
                       {{ post.title }}
                     </a>
                   </li>
