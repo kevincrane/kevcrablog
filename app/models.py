@@ -4,6 +4,11 @@ from app import db
 
 class User(db.Model, UserMixin):
     """ Site-wide User model
+    :param int id: unique user id
+    :param str username: The name of the User
+    :param str password: The User's password
+    :param bool active: Is this user's account enabled?
+    :param str email: The User's email
     """
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)

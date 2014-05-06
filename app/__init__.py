@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import os
+
 from flask import Flask
 from flask.ext.admin import Admin
 from flask.ext.babel import Babel
@@ -7,25 +8,25 @@ from flask.ext.debugtoolbar import DebugToolbarExtension
 from flask.ext.misaka import Misaka
 from flask.ext.moment import Moment
 from flask.ext.user import UserManager, SQLAlchemyAdapter
+from flask.ext.cache import Cache     # TODO add caching
 
 from app.core import db
 from app.admin import AdminMain, PostAdminView, NewPostView, FileAdminView
+
+cache = Cache(config={'CACHE_TYPE': 'simple'})
 from app.kevcrablog import views
 
-# from flask.ext.cache import Cache     # TODO add caching
-# Setup flask cache
-# cache = Cache()       # TODO add caching
-
-# init flask assets
-# assets_env = Environment()    # TODO assets?
 from app.kevcrablog.models import Post
 from app.models import User
 from settings import BASE_DIR
 
+# init flask assets
+# assets_env = Environment()    # TODO assets?
+
 
 def create_app(config='dev'):
     """ Flask application factory
-    :param config: type of app to build, either "prod" or "dev"
+    :param str config: type of app to build, either "prod" or "dev"
     """
     # Create flask application
     app = Flask(__name__)
@@ -47,7 +48,8 @@ def create_app(config='dev'):
     user_manager = UserManager(db_adapter, app)     # Init Flask-User and bind to app
 
     # Init the cache
-    # cache.init_app(app)       # TODO add caching
+
+    cache.init_app(app)
 
     Moment(app)         # moment.js
     Misaka(app, autolink=True, # Misaka Markdown

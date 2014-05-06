@@ -9,7 +9,12 @@ from app.models import User
 
 
 class Post(db.Model):
-    """ Information about a full blog post
+    """ A Post defining a blog article
+    :param int id: Unique id for this post
+    :param str title: Unique blog post title
+    :param str body: The complete text of the post, written in Markdown
+    :param datetime created: When the post was created
+    :param int author_id: the id of the author who wrote this article (possibly worthless)
     """
     __tablename__ = 'posts'
     id = db.Column(db.Integer, primary_key=True)
@@ -21,10 +26,16 @@ class Post(db.Model):
 
     @classmethod
     def query_all(cls):
+        """ Return all stored, ordered in reverse chronological (newest to oldest)
+        :return Query:
+        """
         return Post.query.order_by(desc(Post.created))
 
     @classmethod
     def group_by_year_month(cls):
+        """ Returns all posts grouped by year and month
+        :return dict: { (year, month): [Posts] }
+        """
         order_group = collections.OrderedDict()
         posts = Post.query.with_entities(Post.id, Post.title, Post.created).order_by(desc(Post.created))
         for ((year, month), grouped_posts) in groupby(posts, lambda x: (x.created.year, x.created.month)):
@@ -39,6 +50,9 @@ class Post(db.Model):
 
     @property
     def slug(self):
+        """ Returns 'sluggified' version of the title
+        :return str:
+        """
         return slugify(self.title, '-')
 
     def __repr__(self):

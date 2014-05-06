@@ -1,5 +1,7 @@
 from flask import Blueprint, render_template
 from flask.ext.paginate import Pagination
+
+from app import cache
 from app.kevcrablog.models import Post
 from settings import POSTS_PER_PAGE
 
@@ -19,10 +21,11 @@ def sidebar():
 @blog.route('/')
 @blog.route('/index/', methods=['GET', 'POST'])
 @blog.route('/index/<int:page>', methods=['GET', 'POST'])
-# @cache.cached(timeout=1000)       # TODO add cache
+@cache.cached(timeout=3000)
 def index(page=1):
     """ Display the main page of the blog with the most recent blog posts
         paginated and displayed
+    :param int page: Which paginated page of blog entries to display
     """
     posts = Post.query_all().paginate(page, POSTS_PER_PAGE, False)
     pagination = Pagination(page=page, total=posts.total, per_page=POSTS_PER_PAGE,
@@ -33,8 +36,11 @@ def index(page=1):
 
 
 @blog.route('/post/<int:post_id>/<slug>')
+@cache.cached(timeout=3000)
 def view_post(post_id, slug):
     """ Display a full new post, with comments and view count
+    :param int post_id: id number of post to display
+    :param str slug: slugified version of the post title
     """
     post = Post.query.get(post_id)
     if not post or post.slug != slug:
@@ -45,7 +51,10 @@ def view_post(post_id, slug):
 
 
 @blog.route('/about')
+@cache.cached(timeout=6000)
 def about():
+    """ Display the About Me page
+    """
     recent, group_month = sidebar()
     return render_template('about.html', recent_posts=recent, grouped_by_month=group_month)
 
