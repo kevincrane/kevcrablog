@@ -1,0 +1,303 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>app.kevcrablog package &mdash; The Kevin Crane 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="The Kevin Crane 0.1 documentation" href="index.html" />
+    <link rel="up" title="app package" href="app.html" />
+    <link rel="prev" title="app package" href="app.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="app.html" title="app package"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">The Kevin Crane 0.1 documentation</a> &raquo;</li>
+          <li><a href="app.html" accesskey="U">app package</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="app-kevcrablog-package">
+<h1>app.kevcrablog package<a class="headerlink" href="#app-kevcrablog-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-app.kevcrablog.forms">
+<span id="app-kevcrablog-forms-module"></span><h2>app.kevcrablog.forms module<a class="headerlink" href="#module-app.kevcrablog.forms" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="app.kevcrablog.forms.MarkdownWidget">
+<em class="property">class </em><tt class="descclassname">app.kevcrablog.forms.</tt><tt class="descname">MarkdownWidget</tt><a class="reference internal" href="_modules/app/kevcrablog/forms.html#MarkdownWidget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.kevcrablog.forms.MarkdownWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">wtforms.widgets.core.TextArea</span></tt></p>
+<p>Replacement TextArea for blog Markdown
+- When typing, text is converted to markdown and displayed in</p>
+<blockquote>
+<div>HTML div &#8216;markdown-preview&#8217;</div></blockquote>
+</dd></dl>
+
+<dl class="class">
+<dt id="app.kevcrablog.forms.PostForm">
+<em class="property">class </em><tt class="descclassname">app.kevcrablog.forms.</tt><tt class="descname">PostForm</tt><big>(</big><em>formdata=&lt;class flask_wtf.form._Auto at 0x2f15120&gt;</em>, <em>obj=None</em>, <em>prefix=''</em>, <em>csrf_context=None</em>, <em>secret_key=None</em>, <em>csrf_enabled=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/app/kevcrablog/forms.html#PostForm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.kevcrablog.forms.PostForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">flask_wtf.form.Form</span></tt></p>
+<p>Form for new blog Post object</p>
+<dl class="attribute">
+<dt id="app.kevcrablog.forms.PostForm.body">
+<tt class="descname">body</tt><em class="property"> = &lt;UnboundField(TextAreaField, (u'Content',), {'widget': &lt;app.kevcrablog.forms.MarkdownWidget object at 0x36a3150&gt;, 'validators': [&lt;wtforms.validators.InputRequired object at 0x35f0190&gt;]})&gt;</em><a class="headerlink" href="#app.kevcrablog.forms.PostForm.body" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="app.kevcrablog.forms.PostForm.title">
+<tt class="descname">title</tt><em class="property"> = &lt;UnboundField(TextField, (u'Post Title',), {'validators': [&lt;wtforms.validators.InputRequired object at 0x35f0110&gt;]})&gt;</em><a class="headerlink" href="#app.kevcrablog.forms.PostForm.title" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-app.kevcrablog.models">
+<span id="app-kevcrablog-models-module"></span><h2>app.kevcrablog.models module<a class="headerlink" href="#module-app.kevcrablog.models" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="app.kevcrablog.models.Post">
+<em class="property">class </em><tt class="descclassname">app.kevcrablog.models.</tt><tt class="descname">Post</tt><big>(</big><em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/app/kevcrablog/models.html#Post"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.kevcrablog.models.Post" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">flask_sqlalchemy.Model</span></tt></p>
+<p>A Post defining a blog article
+:param int id: Unique id for this post
+:param str title: Unique blog post title
+:param str body: The complete text of the post, written in Markdown
+:param datetime created: When the post was created
+:param int author_id: the id of the author who wrote this article (possibly worthless)</p>
+<dl class="attribute">
+<dt id="app.kevcrablog.models.Post.author_id">
+<tt class="descname">author_id</tt><a class="headerlink" href="#app.kevcrablog.models.Post.author_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="app.kevcrablog.models.Post.body">
+<tt class="descname">body</tt><a class="headerlink" href="#app.kevcrablog.models.Post.body" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="app.kevcrablog.models.Post.created">
+<tt class="descname">created</tt><a class="headerlink" href="#app.kevcrablog.models.Post.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="app.kevcrablog.models.Post.group_by_year_month">
+<em class="property">classmethod </em><tt class="descname">group_by_year_month</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/app/kevcrablog/models.html#Post.group_by_year_month"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.kevcrablog.models.Post.group_by_year_month" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns all posts grouped by year and month
+:return dict: { (year, month): [Posts] }</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="app.kevcrablog.models.Post.id">
+<tt class="descname">id</tt><a class="headerlink" href="#app.kevcrablog.models.Post.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="app.kevcrablog.models.Post.query_all">
+<em class="property">classmethod </em><tt class="descname">query_all</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/app/kevcrablog/models.html#Post.query_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.kevcrablog.models.Post.query_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all stored, ordered in reverse chronological (newest to oldest)
+:return Query:</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="app.kevcrablog.models.Post.slug">
+<tt class="descname">slug</tt><a class="reference internal" href="_modules/app/kevcrablog/models.html#Post.slug"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.kevcrablog.models.Post.slug" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns &#8216;sluggified&#8217; version of the title
+:return str:</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="app.kevcrablog.models.Post.title">
+<tt class="descname">title</tt><a class="headerlink" href="#app.kevcrablog.models.Post.title" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="app.kevcrablog.models.desc">
+<tt class="descclassname">app.kevcrablog.models.</tt><tt class="descname">desc</tt><big>(</big><em>column</em><big>)</big><a class="headerlink" href="#app.kevcrablog.models.desc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Produce a descending <tt class="docutils literal"><span class="pre">ORDER</span> <span class="pre">BY</span></tt> clause element.</p>
+<p>e.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">desc</span>
+
+<span class="n">stmt</span> <span class="o">=</span> <span class="n">select</span><span class="p">([</span><span class="n">users_table</span><span class="p">])</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="n">desc</span><span class="p">(</span><span class="n">users_table</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>will produce SQL as:</p>
+<div class="highlight-python"><div class="highlight"><pre>SELECT id, name FROM user ORDER BY name DESC
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="#app.kevcrablog.models.desc" title="app.kevcrablog.models.desc"><tt class="xref py py-func docutils literal"><span class="pre">desc()</span></tt></a> function is a standalone version of the
+<tt class="xref py py-meth docutils literal"><span class="pre">ColumnElement.desc()</span></tt> method available on all SQL expressions,
+e.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">stmt</span> <span class="o">=</span> <span class="n">select</span><span class="p">([</span><span class="n">users_table</span><span class="p">])</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="n">users_table</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">desc</span><span class="p">())</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>column</strong> &#8211; A <tt class="xref py py-class docutils literal"><span class="pre">ColumnElement</span></tt> (e.g. scalar SQL expression)
+with which to apply the <a class="reference internal" href="#app.kevcrablog.models.desc" title="app.kevcrablog.models.desc"><tt class="xref py py-func docutils literal"><span class="pre">desc()</span></tt></a> operation.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p><tt class="xref py py-func docutils literal"><span class="pre">asc()</span></tt></p>
+<p><tt class="xref py py-func docutils literal"><span class="pre">nullsfirst()</span></tt></p>
+<p><tt class="xref py py-func docutils literal"><span class="pre">nullslast()</span></tt></p>
+<p class="last"><tt class="xref py py-meth docutils literal"><span class="pre">Select.order_by()</span></tt></p>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-app.kevcrablog.views">
+<span id="app-kevcrablog-views-module"></span><h2>app.kevcrablog.views module<a class="headerlink" href="#module-app.kevcrablog.views" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="app.kevcrablog.views.about">
+<tt class="descclassname">app.kevcrablog.views.</tt><tt class="descname">about</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/app/kevcrablog/views.html#about"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.kevcrablog.views.about" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display the About Me page</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="app.kevcrablog.views.index">
+<tt class="descclassname">app.kevcrablog.views.</tt><tt class="descname">index</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/app/kevcrablog/views.html#index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.kevcrablog.views.index" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Display the main page of the blog with the most recent blog posts</dt>
+<dd>paginated and displayed</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>page</strong> (<em>int</em>) &#8211; Which paginated page of blog entries to display</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="app.kevcrablog.views.page_not_found">
+<tt class="descclassname">app.kevcrablog.views.</tt><tt class="descname">page_not_found</tt><big>(</big><em>e</em><big>)</big><a class="reference internal" href="_modules/app/kevcrablog/views.html#page_not_found"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.kevcrablog.views.page_not_found" title="Permalink to this definition">¶</a></dt>
+<dd><p>Error Code 404 Handler</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="app.kevcrablog.views.sidebar">
+<tt class="descclassname">app.kevcrablog.views.</tt><tt class="descname">sidebar</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/app/kevcrablog/views.html#sidebar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.kevcrablog.views.sidebar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetch a dict of information that should be used for each view
+e.g. recent posts, posts by view used in base_blog.html</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="app.kevcrablog.views.view_post">
+<tt class="descclassname">app.kevcrablog.views.</tt><tt class="descname">view_post</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/app/kevcrablog/views.html#view_post"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.kevcrablog.views.view_post" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display a full new post, with comments and view count
+:param int post_id: id number of post to display
+:param str slug: slugified version of the post title</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-app.kevcrablog">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-app.kevcrablog" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">app.kevcrablog package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-app.kevcrablog.forms">app.kevcrablog.forms module</a></li>
+<li><a class="reference internal" href="#module-app.kevcrablog.models">app.kevcrablog.models module</a></li>
+<li><a class="reference internal" href="#module-app.kevcrablog.views">app.kevcrablog.views module</a></li>
+<li><a class="reference internal" href="#module-app.kevcrablog">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="app.html"
+                        title="previous chapter">app package</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/app.kevcrablog.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="app.html" title="app package"
+             >previous</a> |</li>
+        <li><a href="index.html">The Kevin Crane 0.1 documentation</a> &raquo;</li>
+          <li><a href="app.html" >app package</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Kevin Crane.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
+    </div>
+  </body>
+</html>

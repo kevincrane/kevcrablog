@@ -1,0 +1,372 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>app package &mdash; The Kevin Crane 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="The Kevin Crane 0.1 documentation" href="index.html" />
+    <link rel="next" title="app.kevcrablog package" href="app.kevcrablog.html" />
+    <link rel="prev" title="Welcome to app’s documentation!" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="app.kevcrablog.html" title="app.kevcrablog package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to app’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">The Kevin Crane 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="app-package">
+<h1>app package<a class="headerlink" href="#app-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="app.kevcrablog.html">app.kevcrablog package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="app.kevcrablog.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.kevcrablog.html#module-app.kevcrablog.forms">app.kevcrablog.forms module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.kevcrablog.html#module-app.kevcrablog.models">app.kevcrablog.models module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.kevcrablog.html#module-app.kevcrablog.views">app.kevcrablog.views module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.kevcrablog.html#module-app.kevcrablog">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-app.admin">
+<span id="app-admin-module"></span><h2>app.admin module<a class="headerlink" href="#module-app.admin" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="app.admin.AdminMain">
+<em class="property">class </em><tt class="descclassname">app.admin.</tt><tt class="descname">AdminMain</tt><big>(</big><em>name=None</em>, <em>category=None</em>, <em>endpoint=None</em>, <em>url=None</em>, <em>template='admin/index.html'</em><big>)</big><a class="reference internal" href="_modules/app/admin.html#AdminMain"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.admin.AdminMain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">flask_admin.base.AdminIndexView</span></tt></p>
+<dl class="method">
+<dt id="app.admin.AdminMain.index">
+<tt class="descname">index</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/app/admin.html#AdminMain.index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.admin.AdminMain.index" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="app.admin.AdminMain.logout">
+<tt class="descname">logout</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/app/admin.html#AdminMain.logout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.admin.AdminMain.logout" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="app.admin.FileAdminView">
+<em class="property">class </em><tt class="descclassname">app.admin.</tt><tt class="descname">FileAdminView</tt><big>(</big><em>base_path</em>, <em>base_url</em>, <em>name=None</em>, <em>category=None</em>, <em>endpoint=None</em>, <em>url=None</em>, <em>verify_path=True</em><big>)</big><a class="reference internal" href="_modules/app/admin.html#FileAdminView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.admin.FileAdminView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">flask_admin.contrib.fileadmin.FileAdmin</span></tt></p>
+<dl class="method">
+<dt id="app.admin.FileAdminView.action_view">
+<tt class="descname">action_view</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#app.admin.FileAdminView.action_view" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="app.admin.FileAdminView.delete">
+<tt class="descname">delete</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#app.admin.FileAdminView.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete view method</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="app.admin.FileAdminView.edit">
+<tt class="descname">edit</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#app.admin.FileAdminView.edit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Edit view method</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="app.admin.FileAdminView.index">
+<tt class="descname">index</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#app.admin.FileAdminView.index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Index view method</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> &#8211; Optional directory path. If not provided, will use the base directory</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="app.admin.FileAdminView.is_accessible">
+<tt class="descname">is_accessible</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/app/admin.html#FileAdminView.is_accessible"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.admin.FileAdminView.is_accessible" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="app.admin.FileAdminView.mkdir">
+<tt class="descname">mkdir</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#app.admin.FileAdminView.mkdir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Directory creation view method</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> &#8211; Optional directory path. If not provided, will use the base directory</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="app.admin.FileAdminView.rename">
+<tt class="descname">rename</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#app.admin.FileAdminView.rename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rename view method</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="app.admin.FileAdminView.upload">
+<tt class="descname">upload</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#app.admin.FileAdminView.upload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Upload view method</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> &#8211; Optional directory path. If not provided, will use the base directory</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="app.admin.NewPostView">
+<em class="property">class </em><tt class="descclassname">app.admin.</tt><tt class="descname">NewPostView</tt><big>(</big><em>name=None</em>, <em>category=None</em>, <em>endpoint=None</em>, <em>url=None</em>, <em>static_folder=None</em>, <em>static_url_path=None</em><big>)</big><a class="reference internal" href="_modules/app/admin.html#NewPostView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.admin.NewPostView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">flask_admin.base.BaseView</span></tt></p>
+<dl class="method">
+<dt id="app.admin.NewPostView.is_accessible">
+<tt class="descname">is_accessible</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/app/admin.html#NewPostView.is_accessible"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.admin.NewPostView.is_accessible" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="app.admin.NewPostView.new_post">
+<tt class="descname">new_post</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/app/admin.html#NewPostView.new_post"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.admin.NewPostView.new_post" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display the &#8216;new post&#8217; live text editor form</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="app.admin.PostAdminView">
+<em class="property">class </em><tt class="descclassname">app.admin.</tt><tt class="descname">PostAdminView</tt><a class="reference internal" href="_modules/app/admin.html#PostAdminView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.admin.PostAdminView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">flask_admin.contrib.sqla.view.ModelView</span></tt></p>
+<p>Admin page for the management of blog posts</p>
+<dl class="method">
+<dt id="app.admin.PostAdminView.action_view">
+<tt class="descname">action_view</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#app.admin.PostAdminView.action_view" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mass-model action view.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="app.admin.PostAdminView.ajax_lookup">
+<tt class="descname">ajax_lookup</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#app.admin.PostAdminView.ajax_lookup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="app.admin.PostAdminView.can_create">
+<tt class="descname">can_create</tt><em class="property"> = False</em><a class="headerlink" href="#app.admin.PostAdminView.can_create" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="app.admin.PostAdminView.column_default_sort">
+<tt class="descname">column_default_sort</tt><em class="property"> = ('created', True)</em><a class="headerlink" href="#app.admin.PostAdminView.column_default_sort" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="app.admin.PostAdminView.create_view">
+<tt class="descname">create_view</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#app.admin.PostAdminView.create_view" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create model view</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="app.admin.PostAdminView.delete_view">
+<tt class="descname">delete_view</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#app.admin.PostAdminView.delete_view" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete model view. Only POST method is allowed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="app.admin.PostAdminView.edit_view">
+<tt class="descname">edit_view</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#app.admin.PostAdminView.edit_view" title="Permalink to this definition">¶</a></dt>
+<dd><p>Edit model view</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="app.admin.PostAdminView.index_view">
+<tt class="descname">index_view</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#app.admin.PostAdminView.index_view" title="Permalink to this definition">¶</a></dt>
+<dd><p>List view</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="app.admin.PostAdminView.is_accessible">
+<tt class="descname">is_accessible</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/app/admin.html#PostAdminView.is_accessible"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.admin.PostAdminView.is_accessible" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-app.core">
+<span id="app-core-module"></span><h2>app.core module<a class="headerlink" href="#module-app.core" title="Permalink to this headline">¶</a></h2>
+<p>:core.py
+Contains core objects that are used
+throughout the application</p>
+</div>
+<div class="section" id="module-app.models">
+<span id="app-models-module"></span><h2>app.models module<a class="headerlink" href="#module-app.models" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="app.models.User">
+<em class="property">class </em><tt class="descclassname">app.models.</tt><tt class="descname">User</tt><big>(</big><em>username</em>, <em>password</em>, <em>email=''</em>, <em>active=True</em><big>)</big><a class="reference internal" href="_modules/app/models.html#User"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.models.User" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">flask_sqlalchemy.Model</span></tt>, <tt class="xref py py-class docutils literal"><span class="pre">flask_user.UserMixin</span></tt></p>
+<p>Site-wide User model
+:param int id: unique user id
+:param str username: The name of the User
+:param str password: The User&#8217;s password
+:param bool active: Is this user&#8217;s account enabled?
+:param str email: The User&#8217;s email</p>
+<dl class="attribute">
+<dt id="app.models.User.active">
+<tt class="descname">active</tt><a class="headerlink" href="#app.models.User.active" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="app.models.User.email">
+<tt class="descname">email</tt><a class="headerlink" href="#app.models.User.email" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="app.models.User.id">
+<tt class="descname">id</tt><a class="headerlink" href="#app.models.User.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="app.models.User.password">
+<tt class="descname">password</tt><a class="headerlink" href="#app.models.User.password" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="app.models.User.username">
+<tt class="descname">username</tt><a class="headerlink" href="#app.models.User.username" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-app">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-app" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="app.create_app">
+<tt class="descclassname">app.</tt><tt class="descname">create_app</tt><big>(</big><em>config='dev'</em><big>)</big><a class="reference internal" href="_modules/app.html#create_app"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.create_app" title="Permalink to this definition">¶</a></dt>
+<dd><p>Flask application factory
+:param str config: type of app to build, either &#8220;prod&#8221; or &#8220;dev&#8221;</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">app package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-app.admin">app.admin module</a></li>
+<li><a class="reference internal" href="#module-app.core">app.core module</a></li>
+<li><a class="reference internal" href="#module-app.models">app.models module</a></li>
+<li><a class="reference internal" href="#module-app">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to app&#8217;s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="app.kevcrablog.html"
+                        title="next chapter">app.kevcrablog package</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/app.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="app.kevcrablog.html" title="app.kevcrablog package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to app’s documentation!"
+             >previous</a> |</li>
+        <li><a href="index.html">The Kevin Crane 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Kevin Crane.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
+    </div>
+  </body>
+</html>

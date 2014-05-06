@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>app &mdash; The Kevin Crane 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="The Kevin Crane 0.1 documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">The Kevin Crane 0.1 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for app</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/env python</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+<span class="kn">from</span> <span class="nn">flask.ext.admin</span> <span class="kn">import</span> <span class="n">Admin</span>
+<span class="kn">from</span> <span class="nn">flask.ext.babel</span> <span class="kn">import</span> <span class="n">Babel</span>
+<span class="kn">from</span> <span class="nn">flask.ext.debugtoolbar</span> <span class="kn">import</span> <span class="n">DebugToolbarExtension</span>
+<span class="kn">from</span> <span class="nn">flask.ext.misaka</span> <span class="kn">import</span> <span class="n">Misaka</span>
+<span class="kn">from</span> <span class="nn">flask.ext.moment</span> <span class="kn">import</span> <span class="n">Moment</span>
+<span class="kn">from</span> <span class="nn">flask.ext.user</span> <span class="kn">import</span> <span class="n">UserManager</span><span class="p">,</span> <span class="n">SQLAlchemyAdapter</span>
+<span class="kn">from</span> <span class="nn">flask.ext.cache</span> <span class="kn">import</span> <span class="n">Cache</span>     <span class="c"># TODO add caching</span>
+
+<span class="kn">from</span> <span class="nn">app.core</span> <span class="kn">import</span> <span class="n">db</span>
+<span class="kn">from</span> <span class="nn">app.admin</span> <span class="kn">import</span> <span class="n">AdminMain</span><span class="p">,</span> <span class="n">PostAdminView</span><span class="p">,</span> <span class="n">NewPostView</span><span class="p">,</span> <span class="n">FileAdminView</span>
+
+<span class="n">cache</span> <span class="o">=</span> <span class="n">Cache</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;CACHE_TYPE&#39;</span><span class="p">:</span> <span class="s">&#39;simple&#39;</span><span class="p">})</span>
+<span class="kn">from</span> <span class="nn">app.kevcrablog</span> <span class="kn">import</span> <span class="n">views</span>
+
+<span class="kn">from</span> <span class="nn">app.kevcrablog.models</span> <span class="kn">import</span> <span class="n">Post</span>
+<span class="kn">from</span> <span class="nn">app.models</span> <span class="kn">import</span> <span class="n">User</span>
+<span class="kn">from</span> <span class="nn">settings</span> <span class="kn">import</span> <span class="n">BASE_DIR</span>
+
+<span class="c"># init flask assets</span>
+<span class="c"># assets_env = Environment()    # TODO assets?</span>
+
+
+<div class="viewcode-block" id="create_app"><a class="viewcode-back" href="../app.html#app.create_app">[docs]</a><span class="k">def</span> <span class="nf">create_app</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="s">&#39;dev&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Flask application factory</span>
+<span class="sd">    :param str config: type of app to build, either &quot;prod&quot; or &quot;dev&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># Create flask application</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">from_object</span><span class="p">(</span><span class="s">&#39;settings&#39;</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s">&#39;ENV&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">config</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">jinja_env</span><span class="o">.</span><span class="n">trim_blocks</span> <span class="o">=</span> <span class="bp">True</span>
+
+    <span class="c"># Debug toolbar (when debug=true)</span>
+    <span class="n">debug_toolbar</span> <span class="o">=</span> <span class="n">DebugToolbarExtension</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s">&#39;DEBUG_TB_PROFILER_ENABLED&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s">&#39;DEBUG_TB_INTERCEPT_REDIRECTS&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
+
+    <span class="c"># Register Blueprints</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">register_blueprint</span><span class="p">(</span><span class="n">views</span><span class="o">.</span><span class="n">blog</span><span class="p">)</span>
+
+    <span class="c"># Set up Flask-User</span>
+    <span class="n">babel</span> <span class="o">=</span> <span class="n">Babel</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+    <span class="n">db_adapter</span> <span class="o">=</span> <span class="n">SQLAlchemyAdapter</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="n">User</span><span class="p">)</span>
+    <span class="n">user_manager</span> <span class="o">=</span> <span class="n">UserManager</span><span class="p">(</span><span class="n">db_adapter</span><span class="p">,</span> <span class="n">app</span><span class="p">)</span>     <span class="c"># Init Flask-User and bind to app</span>
+
+    <span class="c"># Init the cache</span>
+
+    <span class="n">cache</span><span class="o">.</span><span class="n">init_app</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+
+    <span class="n">Moment</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>         <span class="c"># moment.js</span>
+    <span class="n">Misaka</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">autolink</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="c"># Misaka Markdown</span>
+           <span class="n">fenced_code</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">lax_html</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">strikethrough</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+           <span class="n">superscript</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">tables</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">wrap</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+    <span class="c"># Init Admin page</span>
+    <span class="n">admin</span> <span class="o">=</span> <span class="n">Admin</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">index_view</span><span class="o">=</span><span class="n">AdminMain</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="s">&#39;admin&#39;</span><span class="p">))</span>
+    <span class="n">admin</span><span class="o">.</span><span class="n">add_view</span><span class="p">(</span><span class="n">PostAdminView</span><span class="p">())</span>
+    <span class="n">admin</span><span class="o">.</span><span class="n">add_view</span><span class="p">(</span><span class="n">NewPostView</span><span class="p">())</span>
+    <span class="n">static_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s">&#39;app&#39;</span><span class="p">,</span> <span class="s">&#39;static&#39;</span><span class="p">)</span>
+    <span class="n">admin</span><span class="o">.</span><span class="n">add_view</span><span class="p">(</span><span class="n">FileAdminView</span><span class="p">(</span><span class="n">static_path</span><span class="p">,</span> <span class="s">&#39;/static/&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;Static Files&#39;</span><span class="p">))</span>
+
+    <span class="c"># Initialize DB</span>
+    <span class="n">db</span><span class="o">.</span><span class="n">init_app</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+
+    <span class="c"># Import and register the different asset bundles</span>
+    <span class="sd">&quot;&quot;&quot; TODO: assets and blueprints?</span>
+<span class="sd">    assets_env.init_app(app)</span>
+<span class="sd">    assets_loader = PythonAssetsLoader(assets)</span>
+<span class="sd">    for name, bundle in assets_loader.load_bundles().iteritems():</span>
+<span class="sd">        assets_env.register(name, bundle)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">app</span>
+
+</div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">create_app</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="s">&#39;dev&#39;</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">The Kevin Crane 0.1 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Kevin Crane.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
+    </div>
+  </body>
+</html>

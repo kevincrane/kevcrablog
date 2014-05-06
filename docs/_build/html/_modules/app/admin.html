@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>app.admin &mdash; The Kevin Crane 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="The Kevin Crane 0.1 documentation" href="../../index.html" />
+    <link rel="up" title="app" href="../app.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">The Kevin Crane 0.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li>
+          <li><a href="../app.html" accesskey="U">app</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for app.admin</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">flash</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">redirect</span><span class="p">,</span> <span class="n">url_for</span>
+<span class="kn">import</span> <span class="nn">flask</span>
+<span class="kn">from</span> <span class="nn">flask.ext.admin</span> <span class="kn">import</span> <span class="n">BaseView</span><span class="p">,</span> <span class="n">expose</span><span class="p">,</span> <span class="n">AdminIndexView</span>
+<span class="kn">from</span> <span class="nn">flask.ext.admin.contrib.fileadmin</span> <span class="kn">import</span> <span class="n">FileAdmin</span>
+<span class="kn">from</span> <span class="nn">flask.ext.admin.contrib.sqla</span> <span class="kn">import</span> <span class="n">ModelView</span>
+<span class="kn">from</span> <span class="nn">flask.ext.login</span> <span class="kn">import</span> <span class="n">current_user</span><span class="p">,</span> <span class="n">logout_user</span>
+<span class="kn">from</span> <span class="nn">app.core</span> <span class="kn">import</span> <span class="n">db</span>
+<span class="kn">from</span> <span class="nn">app.kevcrablog.forms</span> <span class="kn">import</span> <span class="n">PostForm</span>
+<span class="kn">from</span> <span class="nn">app.kevcrablog.models</span> <span class="kn">import</span> <span class="n">Post</span>
+
+
+<div class="viewcode-block" id="AdminMain"><a class="viewcode-back" href="../../app.html#app.admin.AdminMain">[docs]</a><span class="k">class</span> <span class="nc">AdminMain</span><span class="p">(</span><span class="n">AdminIndexView</span><span class="p">):</span>
+    <span class="nd">@expose</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="AdminMain.index"><a class="viewcode-back" href="../../app.html#app.admin.AdminMain.index">[docs]</a>    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">current_user</span><span class="o">.</span><span class="n">is_authenticated</span><span class="p">():</span>
+            <span class="n">login_url</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">?next=</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s">&#39;user.login&#39;</span><span class="p">),</span> <span class="n">flask</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">login_url</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s">&#39;admin/index.html&#39;</span><span class="p">)</span>
+</div>
+    <span class="nd">@expose</span><span class="p">(</span><span class="s">&#39;/logout&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="AdminMain.logout"><a class="viewcode-back" href="../../app.html#app.admin.AdminMain.logout">[docs]</a>    <span class="k">def</span> <span class="nf">logout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">logout_user</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s">&#39;blog.index&#39;</span><span class="p">))</span>
+
+</div></div>
+<div class="viewcode-block" id="NewPostView"><a class="viewcode-back" href="../../app.html#app.admin.NewPostView">[docs]</a><span class="k">class</span> <span class="nc">NewPostView</span><span class="p">(</span><span class="n">BaseView</span><span class="p">):</span>
+<div class="viewcode-block" id="NewPostView.is_accessible"><a class="viewcode-back" href="../../app.html#app.admin.NewPostView.is_accessible">[docs]</a>    <span class="k">def</span> <span class="nf">is_accessible</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">current_user</span><span class="o">.</span><span class="n">is_authenticated</span><span class="p">()</span>
+</div>
+    <span class="nd">@expose</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;GET&#39;</span><span class="p">,</span> <span class="s">&#39;POST&#39;</span><span class="p">))</span>
+<div class="viewcode-block" id="NewPostView.new_post"><a class="viewcode-back" href="../../app.html#app.admin.NewPostView.new_post">[docs]</a>    <span class="k">def</span> <span class="nf">new_post</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Display the &#39;new post&#39; live text editor form</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># Validate the form and ensure this Post title doesn&#39;t already exist</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">PostForm</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">validate_on_submit</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">Post</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">form</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">():</span>
+            <span class="n">new_post</span> <span class="o">=</span> <span class="n">Post</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">form</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">form</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">author_id</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+            <span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">new_post</span><span class="p">)</span>
+            <span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            <span class="n">flash</span><span class="p">(</span><span class="s">&#39;Your post is now live!&#39;</span><span class="p">,</span> <span class="s">&#39;success&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s">&#39;admin/index.html&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s">&#39;POST&#39;</span><span class="p">:</span>
+            <span class="n">flash</span><span class="p">(</span><span class="s">&quot;There was a problem submitting the form (probably not a unique post title)!&quot;</span><span class="p">,</span> <span class="s">&#39;danger&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s">&#39;admin/new_post.html&#39;</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="n">form</span><span class="p">)</span>
+
+</div></div>
+<div class="viewcode-block" id="FileAdminView"><a class="viewcode-back" href="../../app.html#app.admin.FileAdminView">[docs]</a><span class="k">class</span> <span class="nc">FileAdminView</span><span class="p">(</span><span class="n">FileAdmin</span><span class="p">):</span>
+<div class="viewcode-block" id="FileAdminView.is_accessible"><a class="viewcode-back" href="../../app.html#app.admin.FileAdminView.is_accessible">[docs]</a>    <span class="k">def</span> <span class="nf">is_accessible</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">current_user</span><span class="o">.</span><span class="n">is_authenticated</span><span class="p">()</span>
+
+</div></div>
+<div class="viewcode-block" id="PostAdminView"><a class="viewcode-back" href="../../app.html#app.admin.PostAdminView">[docs]</a><span class="k">class</span> <span class="nc">PostAdminView</span><span class="p">(</span><span class="n">ModelView</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Admin page for the management of blog posts</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="PostAdminView.is_accessible"><a class="viewcode-back" href="../../app.html#app.admin.PostAdminView.is_accessible">[docs]</a>    <span class="k">def</span> <span class="nf">is_accessible</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">current_user</span><span class="o">.</span><span class="n">is_authenticated</span><span class="p">()</span>
+</div>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">PostAdminView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">Post</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="p">)</span>
+
+    <span class="n">can_create</span> <span class="o">=</span> <span class="bp">False</span>  <span class="c"># Need to go to Markdown editor to create new pages.</span>
+    <span class="n">column_default_sort</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;created&#39;</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">The Kevin Crane 0.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li>
+          <li><a href="../app.html" >app</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Kevin Crane.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
+    </div>
+  </body>
+</html>
