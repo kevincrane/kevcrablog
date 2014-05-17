@@ -12,7 +12,7 @@ POSTS_PER_PAGE = 3                      # Pagination
 
 # Flask-User settings
 USER_ENABLE_EMAIL = False
-USER_ENABLE_REGISTRATION = False    # Change this to true to add users again!
+USER_ENABLE_REGISTRATION = True # Change this to true to add users again!
 
 
 ### Prod Settings ###
