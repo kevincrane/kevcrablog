@@ -35,17 +35,21 @@ def set_permissions(directory, user='www-data', group='www-data'):
 def install():
     """ Fully set up a brand new Ubuntu production environment from scratch
     """
+    # Creating remote user if applicable
+    print(cyan('Creating remote user %s...' % env.user))
+    temp_user = env.user
+    env.user = 'root'
+    if sudo('id %s' % temp_user, warn_only=True).failed:
+        sudo('adduser %s' % temp_user)
+        sudo('echo "%s	ALL=(ALL:ALL) ALL" >> /etc/sudoers' % temp_user)
+    env.user = temp_user
+
     # Install packages
     print(cyan('Updating Ubuntu packages to most recent version...'))
-    sudo('apt-get update && apt-get upgrade')
+    sudo('apt-get update && apt-get -y upgrade')
     print(cyan('Downloading important programs (servers and databases and python and shit)...'))
     sudo('apt-get install  -y build-essential python python-dev git python-pip python-virtualenv '
          'fail2ban postgresql postgresql-contrib libpq-dev nginx uwsgi uwsgi-plugin-python')
-
-    # Creating remote user if applicable
-    print(cyan('Creating remote user %s...' % env.user))
-    if sudo('id %s' % env.user).failed:
-        sudo('adduser %s' % env.user)
 
     # Configure log location
     print(cyan('Creating uwsgi log location...'))
@@ -53,6 +57,7 @@ def install():
     sudo('chown www-data:www-data /var/log/thekevincrane')
 
     # Create application directories and fetch the repo
+    print(cyan('Installing full application...'))
     pull()
     update_deps()
     set_permissions(env.proj_root)
@@ -77,7 +82,7 @@ def configure():
         # TODO: set up non-Upstart option if upstart not available (probably in /etc/uwsgi/apps-available)
         sudo('cp %s/ops/thekevincrane_upstart.conf /etc/init/thekevincrane.conf' % env.proj_root)
 
-    # Set up Postgres
+    # Set up Postgres and secret keys
     pg_uname, pg_pword = instance_config()
     config_db(pg_uname, pg_pword)
 
@@ -112,9 +117,8 @@ def config_db(pg_uname=None, pg_pword=None):
     sudo('service postgresql restart')
 
     print(cyan('Creating initial database tables...'))
-    with settings(warn_only=True):
-        with virtualenv():
-            sudo("echo 'db.create_all()' | ./manage.py shell")
+    with virtualenv():
+        sudo("echo 'db.create_all()' | APP_ENV=prod ./manage.py shell", warn_only=True)
     print(green('Finishing configuring Postgres!'))
 
 
@@ -170,7 +174,7 @@ def pull():
     """ Update code from git on production
     """
     # Create project root, fetch the code and virtualenv
-    if run("test -d %s" % env.proj_root).failed:
+    if run("test -d %s" % env.proj_root, warn_only=True).failed:
         init_pull()
     with cd(env.proj_root):
         print(cyan('Pulling latest code from master...'))
@@ -192,8 +196,7 @@ def migrate():
     """
     msg = prompt('What changes did you make to the models?')
     with prefix('source venv/bin/activate'):
-        with settings(warn_only=True):
-            result = local('./manage.py db migrate -m "%s"' % msg)
+        result = local('./manage.py db migrate -m "%s"' % msg, warn_only=True)
         if result.failed:
             print(yellow('Migration failed, trying to upgrade DB to latest version.'))
             local('./manage.py db upgrade')
