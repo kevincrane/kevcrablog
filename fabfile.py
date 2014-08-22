@@ -119,6 +119,7 @@ def config_db(pg_uname=None, pg_pword=None):
     print(cyan('Creating initial database tables...'))
     with virtualenv():
         sudo("echo 'db.create_all()' | APP_ENV=prod ./manage.py shell", warn_only=True)
+        sudo("echo 'db.create_all()' | APP_ENV=dev ./manage.py shell", warn_only=True)
     print(green('Finishing configuring Postgres!'))
 
 
@@ -196,7 +197,7 @@ def migrate():
     """
     msg = prompt('What changes did you make to the models?')
     with prefix('source venv/bin/activate'):
-        result = local('./manage.py db migrate -m "%s"' % msg, warn_only=True)
+        result = local('./manage.py db migrate -m "%s"' % msg)
         if result.failed:
             print(yellow('Migration failed, trying to upgrade DB to latest version.'))
             local('./manage.py db upgrade')
@@ -232,6 +233,7 @@ def backup_db():
     """
     # Can restore with:
     #   pg_restore --dbname=thekevincrane --create --verbose thekevincrane-DATE.tar
+    #   psql -d thekevincrane -f thekevincrane-DATE.dump    # if plaintext SQL file
     print(cyan('Backing up remote database...'))
     backup_date = date.today()
     with virtualenv():
@@ -248,8 +250,9 @@ def backup_db():
 
 @task
 def reboot():
-    """ Reboot the remote system after 30 seconds
+    """ Reboot the remote system after 30 seconds (Doesn't work)
     """
+    # TODO: fix this
     reboot(wait=30)
 
 @task
@@ -275,4 +278,5 @@ def run_dev():
     """ Run a remote development version of the application
     """
     with virtualenv():
-        sudo('APP_ENV=dev uwsgi --http :8080 --chdir %s --home venv --module manage:app' % env.proj_root)
+        sudo('APP_ENV=dev uwsgi --plugins python --http-socket :8080 --chdir %s --home venv --module manage:app'
+             % env.proj_root)
