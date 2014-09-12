@@ -4,11 +4,6 @@
   {% block blog_header %}
   {% endblock %}
   <div class="row">
-    <div class="col-md-9">
-      {% block blog_main %}
-      {% endblock %}
-    </div>
-
     <!-- Side bar menu -->
     <div class="col-md-3">
       <!-- Recent Posts -->
@@ -57,6 +52,11 @@
           </script>
         {% endfor %}
       </ul>
+    </div>
+    <!-- Post view -->
+    <div class="col-md-9">
+      {% block blog_main %}
+      {% endblock %}
     </div>
   </div>
 {% endblock %}

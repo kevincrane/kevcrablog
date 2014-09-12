@@ -183,7 +183,6 @@ def pull():
     print(green('Finished deploying latest code!'))
 
 
-@task
 def update_deps():
     """ Update python dependencies for thekevincrane
     """
@@ -193,7 +192,7 @@ def update_deps():
 
 @task
 def migrate():
-    """ Update local DB to latest migration version from model changes
+    """ Local: Update DB to latest migration version from model changes
     """
     msg = prompt('What changes did you make to the models?')
     with prefix('source venv/bin/activate'):
@@ -206,12 +205,12 @@ def migrate():
             print(green('Finished migrating DB models!'))
 
 
-@task
 def migration_up():
     """ Update DB to latest migration version
     """
     with virtualenv():
-        sudo('./manage.py db upgrade')
+        sudo('APP_ENV=prod ./manage.py db upgrade')
+        sudo('APP_ENV=dev ./manage.py db upgrade')
     print(green('Updated remote DB to latest version!'))
 
 
@@ -248,12 +247,13 @@ def backup_db():
     print(green('Backup saved to %s/%s!' % (env.local_db_backup, backup_date)))
 
 
-@task
+# @task
 def reboot():
     """ Reboot the remote system after 30 seconds (Doesn't work)
     """
     # TODO: fix this
     reboot(wait=30)
+
 
 @task
 def shell():
@@ -264,7 +264,7 @@ def shell():
 
 @task
 def run_local():
-    """ Run a local Flask server for development
+    """ Local: Run a local Flask server for development
     """
     with prefix('source venv/bin/activate'):
         local('APP_ENV=dev ./manage.py server')

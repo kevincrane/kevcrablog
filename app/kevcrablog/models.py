@@ -2,8 +2,10 @@ import calendar
 import collections
 from datetime import datetime
 from itertools import groupby
+
 from markdown.extensions.headerid import slugify
 from sqlalchemy import desc
+
 from app import db
 from app.models import User
 

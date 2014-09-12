@@ -8,7 +8,7 @@ from flask.ext.debugtoolbar import DebugToolbarExtension
 from flask.ext.misaka import Misaka
 from flask.ext.moment import Moment
 from flask.ext.user import UserManager, SQLAlchemyAdapter
-from flask.ext.cache import Cache     # TODO add caching
+from flask.ext.cache import Cache       # TODO add caching
 
 from app.core import db
 from app.admin import AdminMain, PostAdminView, NewPostView, FileAdminView
@@ -51,8 +51,8 @@ def create_app(config='dev'):
 
     cache.init_app(app)
 
-    Moment(app)         # moment.js
-    Misaka(app, autolink=True, # Misaka Markdown
+    Moment(app)                 # moment.js
+    Misaka(app, autolink=True,  # Misaka Markdown
            fenced_code=True, lax_html=True, strikethrough=True,
            superscript=True, tables=True, wrap=True)
 

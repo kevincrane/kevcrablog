@@ -15,7 +15,7 @@
           <!-- Generate a preview of each blog post -->
           <h2 class="post-preview-title">
             <a href="{{ url_for('.view_post', post_id=post.id, slug=post.slug) }}">
-            {{ post.title }}
+              {{ post.title }}
             </a>
           </h2>
           <p class="post-preview-body">{{ post.body|safe|truncate(255)|markdown }}</p>

@@ -1,4 +1,5 @@
 from flask.ext.user import UserMixin
+
 from app import db
 
 

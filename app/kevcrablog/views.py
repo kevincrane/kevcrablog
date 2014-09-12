@@ -35,7 +35,7 @@ def index(page=1):
                            recent_posts=recent, grouped_by_month=group_month)
 
 
-@blog.route('/post/<int:post_id>/<slug>')
+@blog.route('/post/<int:post_id>-<slug>')
 @cache.cached(timeout=3000)
 def view_post(post_id, slug):
     """ Display a full new post, with comments and view count

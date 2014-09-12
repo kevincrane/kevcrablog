@@ -6,6 +6,11 @@
     text-align: center;
 }
 
+.col-centered {
+    float: none;
+    margin: 0 auto;
+}
+
 /* Index Style */
 .list-group {
     padding-left: 0;
@@ -33,5 +38,5 @@
 /* About Page */
 .social-about {
     color: #373737;
-    text-decoration: no-underline;
+    /*text-decoration: no-underline;*/
 }
