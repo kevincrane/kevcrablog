@@ -1,17 +1,42 @@
 <!-- Extends base layout -->
 {% extends "base_blog.html" %}
 {% set active_page = "index" %}
+{% import "_forms.html" as forms %}
 
 {% block blog_main %}
   <h2 class="post-title">{{ post.title }}</h2>
   <p class="post-body">{{ post.body|safe|markdown }}</p>
+  <small class="post-created">Created <i>{{ moment(post.created).calendar() }}</i></small>
   <hr/>
+
+  <!-- Comments -->
+  <h3>Comments</h3>
+  {% if post.comments %}
+    {% for comment in post.comments %}
+      <p>{{ comment.body }}</p>
+      <p>- <strong>{{ comment.author }}</strong> - <small>{{ moment(comment.created).calendar() }}</small></p>
+      {{ comment.text }}
+    {% endfor %}
+  {% else %}
+    <p><i>No Comments...</i></p>
+  {% endif %}
+
+  <hr>
+  <h2>Add a comment</h2>
+  <form action="" method="post">
+    {{ forms.render(form) }}
+    <div class="actions">
+      <input type="submit" class="btn primary" value="comment">
+    </div>
+  </form>
+
+
+  <!-- Previous page -->
   {% if prev_page %}
     <p><a href="{{ url_for('.index', page=prev_page) }}"><< Back to the rest.</a>
       {% else %}
     <p><a href="{{ url_for('.index') }}"><< Back to the rest</a>
   {% endif %}
-  <h6 class="post-created">Created <i>{{ moment(post.created).calendar() }}</i></h6> {# TODO: move beneath title #}
 {% endblock %}
 
 {% block js %}

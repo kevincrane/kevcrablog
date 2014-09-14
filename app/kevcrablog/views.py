@@ -1,8 +1,10 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, flash, redirect, render_template, url_for, request
 from flask.ext.paginate import Pagination
 
 from app import cache
-from app.kevcrablog.models import Post
+from app.core import db
+from app.kevcrablog.forms import CommentForm
+from app.kevcrablog.models import Post, Comment
 from settings import POSTS_PER_PAGE
 
 
@@ -35,23 +37,33 @@ def index(page=1):
                            recent_posts=recent, grouped_by_month=group_month)
 
 
-@blog.route('/post/<int:post_id>-<slug>')
-@cache.cached(timeout=3000)
+@blog.route('/post/<int:post_id>-<slug>', methods=['GET', 'POST'])
+# @cache.cached(timeout=300)
 def view_post(post_id, slug):
     """ Display a full new post, with comments and view count
     :param int post_id: id number of post to display
     :param str slug: slugified version of the post title
     """
     post = Post.query.get(post_id)
+    form = CommentForm()
     if not post or post.slug != slug:
         return page_not_found(404)
+
+    if request.method == 'POST' and form.validate_on_submit():
+        # Handle new comment, redirect to same post
+        new_comment = Comment(body=form.body.data, author=form.author.data)
+        post.comments.append(new_comment)
+        db.session.commit()
+        flash('Your comment is now live!', 'success')
+        return redirect(url_for('.view_post', post_id=post_id, slug=slug))
+
     recent, group_month = sidebar()
     return render_template('post.html', post=post,
-                           recent_posts=recent, grouped_by_month=group_month)
+                           recent_posts=recent, grouped_by_month=group_month, form=form)
 
 
 @blog.route('/about')
-@cache.cached(timeout=6000)
+@cache.cached(timeout=600)
 def about():
     """ Display the About Me page
     """

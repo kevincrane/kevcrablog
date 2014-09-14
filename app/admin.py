@@ -36,7 +36,7 @@ class NewPostView(BaseView):
         # Validate the form and ensure this Post title doesn't already exist
         form = PostForm()
         if form.validate_on_submit() and not Post.query.filter_by(title=form.title.data).first():
-            new_post = Post(title=form.title.data, body=form.body.data, author_id=None)
+            new_post = Post(title=form.title.data, body=form.body.data, author_id=1)
             db.session.add(new_post)
             db.session.commit()
             flash('Your post is now live!', 'success')

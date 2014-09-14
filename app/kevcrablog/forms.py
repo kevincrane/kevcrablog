@@ -21,3 +21,10 @@ class PostForm(Form):
     title = TextField(u'Post Title', validators=[validators.InputRequired("Please enter a good title.")])
     body = TextAreaField(u'Content', validators=[validators.InputRequired("This would be the worst blog post.")],
                          widget=MarkdownWidget())
+
+
+class CommentForm(Form):
+    """ Form for a Comment on a blog Post
+    """
+    body = TextAreaField(u'Comment', validators=[validators.InputRequired("Say something at least.")])
+    author = TextField(u'Name', validators=[validators.InputRequired("Don't be scared, what's your name?")])

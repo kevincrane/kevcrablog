@@ -26,7 +26,11 @@
             <a class="post-preview-read" href="{{ url_for('.view_post', post_id=post.id, slug=post.slug) }}">Read
               More!</a>
           {% endif %}
-          <h6 class="post-preview-created">Created <i>{{ moment(post.created).calendar() }}</i></h6>
+          <small class="post-preview-created">Created <i>{{ moment(post.created).calendar() }}</i> |
+            {% with num_comments=post.comments|length %}
+              {{ num_comments }} comment {%- if num_comments != 1 %}s{%- endif -%}
+            {% endwith %}
+          </small>
           <hr/>
         {% endfor %}
 

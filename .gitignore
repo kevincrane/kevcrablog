@@ -17,7 +17,6 @@ nosetests.xml
 
 # App-specific
 app.db
-migrations
 
 # Garbage Mac file
 .DS_Store

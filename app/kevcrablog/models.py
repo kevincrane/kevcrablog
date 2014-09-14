@@ -5,6 +5,7 @@ from itertools import groupby
 
 from markdown.extensions.headerid import slugify
 from sqlalchemy import desc
+from sqlalchemy.orm import relationship
 
 from app import db
 from app.models import User
@@ -24,6 +25,7 @@ class Post(db.Model):
     body = db.Column(db.Text)
     created = db.Column(db.DateTime, default=datetime.utcnow())
     author_id = db.Column(db.Integer, db.ForeignKey(User.id))
+    comments = relationship("Comment", backref='posts')
     # TODO: tags for each post?
 
     @classmethod
@@ -59,3 +61,14 @@ class Post(db.Model):
 
     def __repr__(self):
         return '<Post %s>' % self.title
+
+
+class Comment(db.Model):
+    """ A Comment about a blog Post
+    """
+    __tablename__ = 'comments'
+    id = db.Column(db.Integer, primary_key=True)
+    author = db.Column(db.String(100), nullable=False)
+    body = db.Column(db.Text, nullable=False)
+    created = db.Column(db.DateTime, default=datetime.utcnow())
+    post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
