@@ -9,15 +9,15 @@ from flask.ext.misaka import Misaka
 from flask.ext.moment import Moment
 from flask.ext.user import UserManager, SQLAlchemyAdapter
 from flask.ext.cache import Cache       # TODO add caching
-
-from app.core import db
-from app.admin import AdminMain, PostAdminView, NewPostView, FileAdminView
+from app.base.admin import AdminMain, PostAdminView, NewPostView, FileAdminView
+from app.core import db                 # TODO: can you just move the one line from core.py to here (or below imports?)
 
 cache = Cache(config={'CACHE_TYPE': 'simple'})
-from app.kevcrablog import views
+from app.base import views as views_base
+from app.kevcrablog import views as views_blog
 
 from app.kevcrablog.models import Post
-from app.models import User
+from app.base.models import User
 from settings import BASE_DIR
 
 # init flask assets
@@ -40,7 +40,8 @@ def create_app(config='dev'):
     app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
     # Register Blueprints
-    app.register_blueprint(views.blog)
+    app.register_blueprint(views_base.base)
+    app.register_blueprint(views_blog.blog)
 
     # Set up Flask-User
     babel = Babel(app)

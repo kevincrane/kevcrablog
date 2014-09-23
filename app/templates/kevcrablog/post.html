@@ -1,7 +1,7 @@
 <!-- Extends base layout -->
-{% extends "base_blog.html" %}
+{% extends "kevcrablog/base_blog.html" %}
 {% set active_page = "index" %}
-{% import "_forms.html" as forms %}
+{% import "macros/forms.html" as forms %}
 
 {% block blog_main %}
   <h2 class="post-title">{{ post.title }}</h2>

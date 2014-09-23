@@ -1,5 +1,9 @@
 .container {
-    margin-top: 60px;
+    max-width: 950px;
+}
+
+.page-content {
+    padding-top: 45px;
 }
 
 .text-center {
@@ -21,8 +25,10 @@
     padding: 5px 10px;
 }
 
-.social-navbar {
-    padding-right: 15px;
+.fa {
+    /*padding-right: 15px;*/
+    padding-right: 2px;
+    padding-top: 5px;
 }
 
 /* Post Preview Style */

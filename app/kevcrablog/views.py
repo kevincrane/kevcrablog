@@ -2,13 +2,14 @@ from flask import Blueprint, flash, redirect, render_template, url_for, request
 from flask.ext.paginate import Pagination
 
 from app import cache
+from app.base.views import page_not_found
 from app.core import db
 from app.kevcrablog.forms import CommentForm
 from app.kevcrablog.models import Post, Comment
 from settings import POSTS_PER_PAGE
 
 
-blog = Blueprint('blog', __name__)
+blog = Blueprint('blog', __name__, url_prefix='/blog')
 
 
 def sidebar():
@@ -33,7 +34,7 @@ def index(page=1):
     pagination = Pagination(page=page, total=posts.total, per_page=POSTS_PER_PAGE,
                             record_name='posts', bs_version=3)
     recent, group_month = sidebar()
-    return render_template('index.html', posts=posts, pagination=pagination,
+    return render_template('kevcrablog/index.html', posts=posts, pagination=pagination,
                            recent_posts=recent, grouped_by_month=group_month)
 
 
@@ -58,21 +59,5 @@ def view_post(post_id, slug):
         return redirect(url_for('.view_post', post_id=post_id, slug=slug))
 
     recent, group_month = sidebar()
-    return render_template('post.html', post=post,
+    return render_template('kevcrablog/post.html', post=post,
                            recent_posts=recent, grouped_by_month=group_month, form=form)
-
-
-@blog.route('/about')
-@cache.cached(timeout=600)
-def about():
-    """ Display the About Me page
-    """
-    recent, group_month = sidebar()
-    return render_template('about.html', recent_posts=recent, grouped_by_month=group_month)
-
-
-@blog.errorhandler(404)
-def page_not_found(e):
-    """ Error Code 404 Handler
-    """
-    return render_template('error/404.html'), 404

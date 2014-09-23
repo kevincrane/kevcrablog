@@ -24,11 +24,13 @@
 {% include 'macros/navbar.html' %}
 
 <div class="container">
-  <div class="col-md-11 col-centered">
-    {% include 'macros/flash.html' %}
+  <div class="page-content">
+    <div class="col-md-12 col-centered">
+      {% include 'macros/flash.html' %}
 
-    {% block content %}
-    {% endblock %}
+      {% block content %}
+      {% endblock %}
+    </div>
   </div>
 </div>
 

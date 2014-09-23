@@ -7,8 +7,8 @@ from markdown.extensions.headerid import slugify
 from sqlalchemy import desc
 from sqlalchemy.orm import relationship
 
-from app import db
-from app.models import User
+from app.core import db
+from app.base.models import User
 
 
 class Post(db.Model):

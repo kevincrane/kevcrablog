@@ -1,57 +1,37 @@
-{% extends "base_blog.html" %}
-{% set active_page = "index" %}
+<!-- Extends base layout -->
+{% extends "base.html" %}
 
-{% block blog_header %}
-  <h1 class="text-center">The Kevin Crane</h1>
-{% endblock %}
+{% block content %}
+  <header class="hero-unit" style="background-color: hotpink">
+    <h1>BIG-ASS PLACEHOLDER</h1>
+  </header>
 
-{% block blog_main %}
   <div class="well">
     <div id="post-preview-list">
-      <h1>Posts</h1>
+      <h2>Latest Post:</h2>
       <hr/>
-      {% if posts and posts.items %}
-        {% for post in posts.items %}
+      {% if frontpage_posts %}
+        {% with post=frontpage_posts[0] %}
           <!-- Generate a preview of each blog post -->
-          <h2 class="post-preview-title">
-            <a href="{{ url_for('.view_post', post_id=post.id, slug=post.slug) }}">
-              {{ post.title }}
-            </a>
-          </h2>
-          <p class="post-preview-body">{{ post.body|safe|truncate(255)|markdown }}</p>
-          {% if posts.page > 1 %}
-            <a class="post-preview-read" href="{{ url_for('.view_post', post_id=post.id,
-            slug=post.slug, prev_page=posts.page) }}">Read More!</a>
-          {% else %}
-            <a class="post-preview-read" href="{{ url_for('.view_post', post_id=post.id, slug=post.slug) }}">Read
-              More!</a>
-          {% endif %}
+          <h3 class="post-preview-title">
+            <a href="{{ url_for('blog.view_post', post_id=post.id, slug=post.slug) }}">{{ post.title }}</a>
+          </h3>
+          <p class="post-preview-body">{{ post.body|safe|truncate(400)|markdown }}</p>
+          <a class="post-preview-read" href="{{ url_for('blog.view_post', post_id=post.id, slug=post.slug) }}">Read More!</a>
           <small class="post-preview-created">Created <i>{{ moment(post.created).calendar() }}</i> |
             {% with num_comments=post.comments|length %}
               {{ num_comments }} comment {%- if num_comments != 1 %}s{%- endif -%}
             {% endwith %}
           </small>
-          <hr/>
+        {% endwith %}
+        <hr/>
+        <h3>Recent Posts:</h3>
+        <ul>
+        {% for post in frontpage_posts[1:] %}
+          <li><a href="{{ url_for('blog.view_post', post_id=post.id, slug=post.slug) }}">{{ post.title }}</a></li>
         {% endfor %}
-
-        <!-- Page Selector -->
-        <div class="text-center">
-          {{ pagination.links|safe }}
-          {{ pagination.info|safe }}
-        </div>
-      {% else %}
-        <h3>No blog posts found :(</h3>
+        </ul>
       {% endif %}
     </div>
   </div>
-{% endblock %}
-
-{% block js %}
-  <script type="text/javascript">
-    $(document).ready(function () {
-      $('pre code').each(function (i, e) {
-        hljs.highlightBlock(e)
-      });
-    });
-  </script>
 {% endblock %}
