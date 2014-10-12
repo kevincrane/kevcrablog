@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, send_from_directory, request
 from app import cache
 from app.kevcrablog.models import Post
+import settings
 
 base = Blueprint('base', __name__)
 
@@ -39,12 +40,13 @@ def page_not_found(e):
 
 @base.app_errorhandler(404)
 def server_error(e):
-    """ Error Code 404 Handler
+    """ Error Code 500 Handler
     """
     return render_template('error/500.html'), 500
-
 
 @base.app_errorhandler(Exception)
 def unhandled_exception(e):
     # TODO: real error page
+    if settings.DEBUG:
+        raise e
     return render_template('error/500.html', error=e), 500
