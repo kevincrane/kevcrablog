@@ -1,4 +1,10 @@
-<link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" media="screen">
-<link rel="stylesheet" href="http://yandex.st/highlightjs/8.0/styles/default.min.css">
-<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-<link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet" media="screen">
+{#<link href="{{ url_for('static', filename='css/bootstrap-flatly.min.css') }}" rel="stylesheet" media="screen">#}
+{##}
+{#<link rel="stylesheet" href="http://yandex.st/highlightjs/8.0/styles/default.min.css">#}
+{#<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">#}
+{#<link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet" media="screen">#}
+
+{% assets "css_all" %}
+<link rel="stylesheet" href="{{ ASSET_URL }}" type="text/css">
+{% endassets %}
+<link href='http://fonts.googleapis.com/css?family=PT+Sans|Fredericka+the+Great' rel='stylesheet' type='text/css'>

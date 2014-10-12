@@ -24,3 +24,6 @@ app.db
 # Virtual Env
 venv
 instance
+
+.sass-cache
+gen

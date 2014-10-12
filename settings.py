@@ -8,7 +8,7 @@ ADMINS = ['kevincrane@gmail.com']       # Administrator list
 
 SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASE_DIR, 'app.db')   # Default DB location
 
-POSTS_PER_PAGE = 3                      # Pagination
+POSTS_PER_PAGE = 5                      # Pagination
 
 # Flask-User settings
 USER_ENABLE_EMAIL = False

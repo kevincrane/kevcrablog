@@ -4,10 +4,12 @@
 {% import "macros/forms.html" as forms %}
 
 {% block blog_main %}
-  <h2 class="post-title">{{ post.title }}</h2>
-  <p class="post-body">{{ post.body|safe|markdown }}</p>
-  <small class="post-created">Created <i>{{ moment(post.created).calendar() }}</i></small>
-  <hr/>
+  <div class="blog-post-view">
+    <h2 class="post-title">{{ post.title }}</h2>
+    <p class="post-body">{{ post.body|safe|markdown }}</p>
+    <small class="post-created">Created <i>{{ moment(post.created).calendar() }}</i></small>
+  </div>
+  <hr class="star-primary"/>
 
   <!-- Comments -->
   <h3>Comments</h3>

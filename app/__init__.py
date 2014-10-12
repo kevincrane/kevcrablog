@@ -1,16 +1,17 @@
-#!/usr/bin/env python
+# !/usr/bin/env python
 import os
 
-from flask import Flask
+from flask import Flask, url_for
 from flask.ext.admin import Admin
 from flask.ext.babel import Babel
 from flask.ext.debugtoolbar import DebugToolbarExtension
 from flask.ext.misaka import Misaka
 from flask.ext.moment import Moment
 from flask.ext.user import UserManager, SQLAlchemyAdapter
-from flask.ext.cache import Cache       # TODO add caching
+from flask.ext.cache import Cache  # TODO add caching
+from flask.ext.assets import Bundle, Environment
 from app.base.admin import AdminMain, PostAdminView, NewPostView, FileAdminView
-from app.core import db                 # TODO: can you just move the one line from core.py to here (or below imports?)
+from app.core import db  # TODO: can you just move the one line from core.py to here (or below imports?)
 
 cache = Cache(config={'CACHE_TYPE': 'simple'})
 from app.base import views as views_base
@@ -19,9 +20,6 @@ from app.kevcrablog import views as views_blog
 from app.kevcrablog.models import Post
 from app.base.models import User
 from settings import BASE_DIR
-
-# init flask assets
-# assets_env = Environment()    # TODO assets?
 
 
 def create_app(config='dev'):
@@ -43,16 +41,27 @@ def create_app(config='dev'):
     app.register_blueprint(views_base.base)
     app.register_blueprint(views_blog.blog)
 
+    # Flask-Assets; bundles all css/js files in minifed file
+    assets = Environment(app)
+    css_all = Bundle('css/bootstrap-flatly.min.css', 'css/highlightjs.min.css', 'css/font-awesome.css', 'css/main.css',
+                     filters='cssmin', output='gen/style.css')
+    js_all = Bundle('js/vendor/bootstrap.min.js', 'js/vendor/showdown-gfm.min.js', 'js/vendor/highlight.min.js',
+                    'js/vendor/moment.min.js', 'js/main.js', filters='jsmin', output='gen/libs.js')
+    assets.register('css_all', css_all)
+    assets.register('js_all', js_all)
+    if app.config['DEBUG']:
+        assets.debug = True
+        app.config['ASSETS_DEBUG'] = True
+
     # Set up Flask-User
     babel = Babel(app)
     db_adapter = SQLAlchemyAdapter(db, User)
-    user_manager = UserManager(db_adapter, app)     # Init Flask-User and bind to app
+    user_manager = UserManager(db_adapter, app)  # Init Flask-User and bind to app
 
     # Init the cache
-
     cache.init_app(app)
 
-    Moment(app)                 # moment.js
+    Moment(app)  # moment.js
     Misaka(app, autolink=True,  # Misaka Markdown
            fenced_code=True, lax_html=True, strikethrough=True,
            superscript=True, tables=True, wrap=True)
@@ -67,13 +76,6 @@ def create_app(config='dev'):
     # Initialize DB
     db.init_app(app)
 
-    # Import and register the different asset bundles
-    """ TODO: assets and blueprints?
-    assets_env.init_app(app)
-    assets_loader = PythonAssetsLoader(assets)
-    for name, bundle in assets_loader.load_bundles().iteritems():
-        assets_env.register(name, bundle)
-    """
     return app
 
 

@@ -35,7 +35,7 @@ def index(page=1):
                             record_name='posts', bs_version=3)
     recent, group_month = sidebar()
     return render_template('kevcrablog/index.html', posts=posts, pagination=pagination,
-                           recent_posts=recent, grouped_by_month=group_month)
+                           recent_posts=recent, grouped_by_month=group_month, title='Blog')
 
 
 @blog.route('/post/<int:post_id>-<slug>', methods=['GET', 'POST'])
@@ -59,5 +59,5 @@ def view_post(post_id, slug):
         return redirect(url_for('.view_post', post_id=post_id, slug=slug))
 
     recent, group_month = sidebar()
-    return render_template('kevcrablog/post.html', post=post,
+    return render_template('kevcrablog/post.html', post=post, title=post.title,
                            recent_posts=recent, grouped_by_month=group_month, form=form)

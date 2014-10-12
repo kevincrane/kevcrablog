@@ -1,0 +1,4 @@
+# robots.txt for http://www.thekevincrane.com (or http://www.kcrane.co http://www.kevincrane.co )
+
+User-agent: *
+Disallow: /admin/   # Authenticated stuff

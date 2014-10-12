@@ -4,17 +4,25 @@
   {% block blog_header %}
   {% endblock %}
   <div class="row">
+    <!-- Post view -->
+    <div class="col-lg-9">
+      {% block blog_main %}
+      {% endblock %}
+    </div>
+
     <!-- Side bar menu -->
-    <div class="col-md-3">
+    <div class="col-lg-3 sidebar">
       <!-- Recent Posts -->
       <div class="list-group">
         <h4 class="list-group-item-heading">Recent Posts</h4>
+        <div class="sidebar-recent-posts">
         {% for recent_post in recent_posts %}
           <a class="list-group-item"
              href="{{ url_for('blog.view_post', post_id=recent_post.id, slug=recent_post.slug) }}">
-            <b>{{ recent_post.title }}</b> <em class="pull-right">({{ recent_post.created.strftime("%b/%d/%y") }})</em>
+            <b>{{ recent_post.title }}</b> <!-- <em class="pull-right">({{ recent_post.created.strftime("%b/%d/%y") }})</em> TODO: uncomment this to re-add dates to recent posts! -->
           </a>
         {% endfor %}
+        </div>
       </div>
 
       <!-- Posts By Month -->
@@ -52,11 +60,6 @@
           </script>
         {% endfor %}
       </ul>
-    </div>
-    <!-- Post view -->
-    <div class="col-md-9">
-      {% block blog_main %}
-      {% endblock %}
     </div>
   </div>
 {% endblock %}

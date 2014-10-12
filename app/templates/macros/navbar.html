@@ -1,9 +1,10 @@
 {% set navigation_bar = [
     ('blog.index', 'Blog'),
+    ('base.projects', 'Projects'),
     ('base.about', 'About')
 ] -%}
 
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -25,15 +26,17 @@
         {% endfor %}
       </ul>
       <div class="nav navbar-nav navbar-right">
-        <a target="_blank" href="http://www.twitter.com/thekevincrane" title="Twitter">
-          <i class="fa fa-twitter-square fa-inverse fa-3x"></i>
-        </a>
-        <a target="_blank" href="http://www.github.com/kevincrane" class="social-navbar" title="Github">
-          <i class="fa fa-github-square fa-inverse fa-3x"></i>
-        </a>
-        <a target="_blank" href="https://www.linkedin.com/in/thekevincrane" class="social-navbar" title="LinkedIn">
-          <i class="fa fa-linkedin-square fa-inverse fa-3x"></i>
-        </a>
+        <ul class="list-inline">
+          <li><a target="_blank" href="http://www.twitter.com/thekevincrane" title="Twitter">
+            <i class="fa fa-twitter fa-3x"></i></a>
+          </li>
+          <li><a target="_blank" href="http://www.github.com/kevincrane" class="social-navbar" title="Github">
+            <i class="fa fa-github fa-3x"></i></a>
+          </li>
+          <li><a target="_blank" href="https://www.linkedin.com/in/thekevincrane" class="social-navbar" title="LinkedIn">
+            <i class="fa fa-linkedin fa-3x"></i></a>
+          </li>
+        </ul>
       </div>
     </div>
     <!--/.nav-collapse -->

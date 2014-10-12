@@ -1,0 +1,451 @@
+// TO RECOMPILE FROM CLI: sass main.scss main.css
+
+// Color presets
+$color-background: #f0eddb;
+$color-background2: #EAF5EB;
+$color-accent: #5fa6a9;
+$color-text: #2b414f;
+$color-contrast: #742f4d;
+$color-contrast2: #346a54;
+
+$color-placeholder: #ef76f6;  // TODO: remove
+
+// Font presets (URLs defined in css.html)
+$font-hero: 'Fredericka the Great', cursive;
+$font-normal: 'PT Sans', sans-serif;
+
+
+// Mixins
+@mixin transition($time) {
+  transition: all ease-in-out $time;
+  -webkit-transition: all ease-in-out $time;
+  -moz-transition: all ease-in-out $time;
+}
+
+@mixin rotation($deg) {
+  transform: rotate($deg);
+  -webkit-transform: rotate($deg);
+  -moz-transform: rotate($deg);
+  -ms-transform: rotate($deg);
+  -o-transform: rotate($deg);
+}
+
+
+body {
+  background-color: $color-background;
+  color: $color-text;
+}
+
+a {
+  color: $color-contrast2;
+  &:hover, &:focus, &:active {
+    color: $color-contrast2;
+  }
+}
+
+.placeholder {
+  background-color: $color-placeholder;
+}
+
+#index-blog-preview {
+  .blog-preview-item {
+    margin: 0 0 15px;
+    a {
+      color: $color-text;
+      background-color: $color-accent;
+      padding: 10px 10px;
+      display: block;
+      position: relative;
+      margin: 0 auto;
+      text-decoration: none;
+      outline: 0;
+      border-radius: 10px;
+      min-height: 17em;
+      box-shadow: rgba(black, 0.3) 3px 3px 3px;
+      &:hover {
+        @include transition(.25s);
+        box-shadow: rgba(black, 0.4) 6px 6px 6px;
+      }
+      h3 {
+        margin: 0;
+        padding-top: .4em;
+      }
+      .caption {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        margin: -10px -10px;
+        border-radius: 10px;
+        background: rgba($color-contrast, .95);
+        @include transition(.25s);
+        &:hover {
+          opacity: 1;
+        }
+      }
+      .caption-content {
+        position: absolute;
+        top: 35%;
+        vertical-align: 50%;
+        width: 100%;
+        height: 20px;
+        margin-top: -12px;
+        text-align: center;
+        font-size: 20px;
+        color: $color-text;
+      }
+    }
+  }
+  .blog-preview-most-recent {
+    p, small {
+      padding-left: 3em;
+    }
+    h3 {
+      padding-left: 1.5em;
+    }
+  }
+}
+
+.navbar {
+  background: rgba($color-accent, .9);
+  color: $color-text;
+  height: 45px;
+  font-size: 17px;
+  border-bottom: 2px solid $color-contrast;
+  .navbar-brand, .navbar-nav > li > a {
+    color: $color-text;
+    font-size: 23px;
+    text-decoration: none;
+    outline: 0;
+    &:hover, &:focus, &:active {
+      color: $color-background;
+      background-color: $color-contrast;
+      @include transition(.25s);
+    }
+  }
+  .collapsing, .in {
+    background: rgba($color-accent, .9);
+  }
+  .fa {
+    margin-top: 10px;
+  }
+  a {
+    text-decoration: none;
+    outline: 0;
+  }
+}
+
+// Magic star <hr/>
+hr.star-primary {
+  margin: 25px auto 30px;
+  padding: 0;
+  max-width: 250px;
+  border: 0;
+  border-top: solid 5px;
+  text-align: center;
+
+  &:after {
+    content: "\f005";
+    display: inline-block;
+    position: relative;
+    top: -.8em;
+    padding: 0 .25em;
+    font-family: FontAwesome;
+    font-size: 2em;
+  }
+}
+hr.star-primary {
+  border-color: $color-contrast;
+}
+hr.star-primary:after {
+  color: $color-contrast;
+  background-color: $color-background;
+}
+
+// Newest Post Ribbon
+.ribbon {
+  @include rotation(-90deg);
+  width: 144px;
+  position: absolute;
+  z-index: 1;
+  left: -3em;
+  top: 5em;
+  text-align: center;
+  font-size: 18px!important;
+  background: #d64b4b;
+  background: -webkit-gradient(linear, left top, left bottom, from(#d64b4b), to(#ab2c2c));
+  background: -webkit-linear-gradient(top, #d64b4b, #ab2c2c);
+  background: -moz-linear-gradient(top, #d64b4b, #ab2c2c);
+  background: -ms-linear-gradient(top, #d64b4b, #ab2c2c);
+  background: -o-linear-gradient(top, #d64b4b, #ab2c2c);
+  background-image: -ms-linear-gradient(top, #d64b4b 0%, #ab2c2c 100%);
+  -webkit-box-shadow: rgba(000,000,000,0.3) 0 1px 1px;
+  -moz-box-shadow: rgba(000,000,000,0.3) 0 1px 1px;
+  box-shadow: rgba(000,000,000,0.3) 0 1px 1px;
+  font-family: 'Helvetica Neue',Helvetica, sans-serif;
+  h1 {
+    font-size: 31px!important;
+    color: #801212;
+    text-shadow: #d65c5c 0 1px 0;
+    margin:0px;
+    padding: 15px 10px;
+  }
+  .ribbon-content:before {
+    left: 0;
+    border-width: 1em 0 0 1em;
+  }
+  .ribbon-content:after {
+    right: 0;
+    border-width: 1em 1em 0 0;
+  }
+}
+.ribbon-stitches-top {
+  margin-top:2px;
+  border-top: 1px dashed rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 2px rgba(255, 255, 255, 0.5);
+}
+.ribbon-stitches-bottom {
+  margin-bottom:2px;
+  border-top: 1px dashed rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 2px rgba(255, 255, 255, 0.3);
+}
+
+// Media settings for small screens
+@media screen and (max-width: 800px) {
+  .ribbon {
+    display: none;
+  }
+  #index-blog-preview {
+    .blog-preview-most-recent {
+      p, small {
+        padding-left: 0em;
+      }
+    }
+  }
+}
+
+footer {
+  background-color: $color-accent;
+  margin: 2em 0 0 0;
+  a {
+    color: $color-text;
+    text-decoration: none;
+    outline: 0;
+  }
+}
+
+.fa {
+  display: inline-block;
+  color: $color-text;
+  width: 40px;
+  height: 40px;
+  border: 2px solid $color-text;
+  border-radius: 100%;
+  text-align: center;
+  font-size:  24px;
+  line-height: 37px;
+  @include transition(.25s);
+
+  &:hover, &:focus, &:active {
+    border: solid 2px $color-text;
+    color: $color-accent;
+    background: $color-text;
+  }
+}
+
+
+
+// LEFTOVERS:
+.container {
+  max-width: 950px;
+  margin: 0 auto;
+}
+
+.page-content {
+  padding-top: 5em;
+}
+
+.underline-link {
+  color: $color-contrast2;
+  text-decoration: none;
+  border-bottom: 1px dotted;
+  &:hover, &:focus, &:active {
+    color: $color-contrast2;
+    text-decoration: none;
+    border-bottom: 1px solid;
+  }
+}
+
+::selection {
+  background: rgba($color-contrast, .9);
+  color: $color-background;
+}
+::-moz-selection {
+  background: rgba($color-contrast, .9);
+  color: $color-background;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.col-centered {
+  float: none;
+  margin: 0 auto;
+}
+
+* {
+  font-family: $font-normal;
+}
+
+
+/* Main Index Style */
+.hero-intro {
+  h1 {
+    font-family: $font-hero;
+    font-size: 5em;
+    text-align: center;
+    padding-top: .53em;
+    margin-top: 0;
+  }
+  p {
+    font-size: 2em;
+    text-align: center;
+  }
+  height: 15em;
+  width: 100%;
+  position: relative;
+  color: $color-background;
+  background-color: $color-contrast;
+  border-radius: 25px;
+  float: left;
+  z-index: 50;
+  *::selection {
+    background-color: rgba($color-contrast2, .9);
+  }
+  *::-moz-selection {
+    background-color: rgba($color-contrast2, .9);
+  }
+
+  @media screen and (max-width: 555px) {
+    p {
+      display: none;
+    }
+  }
+  @media screen and (max-width: 320px) {
+    h1 {
+      font-size: 4em;
+    }
+  }
+}
+
+#kevin-thizz {
+  @include rotation(-90deg);
+  @include transition(.2s);
+  position: absolute;
+  left: -2.6em;
+  top: 0em;
+  overflow-x: hidden;
+  &:hover {
+    left: -4.75em;
+  }
+
+  @media screen and (min-width: 768px) and (max-width: 980px) {
+//    display: none;
+  }
+}
+#kevin-happy {
+  @include rotation(90deg);
+  @include transition(.2s);
+  position: absolute;
+  right: -2.7em;
+  top: 5.5em;
+  &:hover {
+    right: -5.35em;
+  }
+  @media screen and (max-width: 980px) {
+    display: none;
+  }
+}
+
+#index-project-preview {
+  a {
+    text-decoration: none;
+    outline: 0;
+  }
+  .fa {
+    display: inline-block;
+    color: $color-text;
+    width: 1em;
+    height: 1em;
+    border: 2px solid $color-text;
+    border-radius: 10px;
+    text-align: center;
+    font-size:  5.5em;
+    line-height: 1em;
+    @include transition(.25s);
+
+    &:hover, &:focus, &:active {
+      border: solid 2px $color-text;
+      color: $color-contrast2;
+      background: $color-text;
+    }
+  }
+}
+
+#index-aboutme-preview {
+  li {
+    font-size: 1.5em;
+  }
+}
+
+/* Sidebar Index Style */
+.sidebar {
+  .list-group-item {
+    background-color: $color-background2;
+    padding: 5px 10px;
+  }
+}
+
+.sidebar-recent-posts {
+  box-shadow: rgba(black, 0.3) 0px 0px 5px;
+}
+
+.list-group {
+  padding-left: 0;
+  margin-bottom: 20px;
+}
+
+/* Post Preview Style */
+.well {
+  background-color: $color-background2;
+  box-shadow: rgba(black, 0.3) 0px 0px 5px;
+}
+
+.post-preview-body {
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.blog-post-view {
+  background-color: $color-background2;
+  padding: 2em 2em;
+  box-shadow: rgba(black, 0.3) 0px 0px 5px;
+}
+
+/* About Page */
+.social-about {
+  color: #373737;
+  a i {
+    border-bottom: none;
+  }
+}
+
+.row {
+  margin-left: 0;
+  margin-right: 0;
+}

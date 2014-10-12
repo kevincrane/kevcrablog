@@ -1,0 +1,11 @@
+<!-- Extends base layout -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Server Handler</h1>
+  <p>The server broke something and now I'm sad. :(</p>
+  {% if error %}
+  <small>Error message: {{ error }}</small>
+  {% endif %}
+  <p><a href="{{ url_for('base.index') }}">Go somewhere nicer</a>
+{% endblock %}

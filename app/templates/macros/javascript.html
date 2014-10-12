@@ -1,8 +1,6 @@
-<script src="{{ url_for('static', filename='js/vendor/bootstrap.min.js') }}"></script>
-<script src="{{ url_for('static', filename='js/vendor/showdown-gfm.min.js') }}"></script>
-<script src="http://yandex.st/highlightjs/8.0/highlight.min.js"></script>
-{{ moment.include_moment() }}
-<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% assets "js_all" %}
+  <script src="{{ ASSET_URL }}"></script>
+{% endassets %}
 
 <!-- Google Analytics -->
 <script>

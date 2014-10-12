@@ -2,36 +2,149 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <header class="hero-unit" style="background-color: hotpink">
-    <h1>BIG-ASS PLACEHOLDER</h1>
+  <header>
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <img id="kevin-thizz" src="{{ url_for('static', filename='img/kevin-thizz.png') }}" alt="THIZZIN'" height="150px"/>
+        <div class="hero-intro">
+          <h1>Hi, I'm Kevin!</h1>
+          <div class="hero-intro-text">
+            <p>Welcome to my online playground!</p>
+          </div>
+        </div>
+        <img id="kevin-happy" src="{{ url_for('static', filename='img/kevin-happy.png') }}" alt="GRINNIN'" height="150px"/>
+      </div>
+    </div>
   </header>
 
-  <div class="well">
-    <div id="post-preview-list">
-      <h2>Latest Post:</h2>
-      <hr/>
-      {% if frontpage_posts %}
-        {% with post=frontpage_posts[0] %}
-          <!-- Generate a preview of each blog post -->
-          <h3 class="post-preview-title">
-            <a href="{{ url_for('blog.view_post', post_id=post.id, slug=post.slug) }}">{{ post.title }}</a>
-          </h3>
-          <p class="post-preview-body">{{ post.body|safe|truncate(400)|markdown }}</p>
-          <a class="post-preview-read" href="{{ url_for('blog.view_post', post_id=post.id, slug=post.slug) }}">Read More!</a>
-          <small class="post-preview-created">Created <i>{{ moment(post.created).calendar() }}</i> |
-            {% with num_comments=post.comments|length %}
-              {{ num_comments }} comment {%- if num_comments != 1 %}s{%- endif -%}
-            {% endwith %}
-          </small>
-        {% endwith %}
-        <hr/>
-        <h3>Recent Posts:</h3>
-        <ul>
-        {% for post in frontpage_posts[1:] %}
-          <li><a href="{{ url_for('blog.view_post', post_id=post.id, slug=post.slug) }}">{{ post.title }}</a></li>
-        {% endfor %}
-        </ul>
-      {% endif %}
+  <!-- Blog Posts -->
+  <section id="index-blog-preview">
+      <div class="row">
+        <div class="col-sm-12 text-center">
+          <hr class="star-primary"/>
+          <h2>Recent Blog Posts</h2>
+        </div>
+      </div>
+      <div class="row">
+        {% if frontpage_posts %}
+          {% with post=frontpage_posts[0] %}
+            <!-- Generate a preview of each blog post -->
+            <div class="row">
+              <!-- Newest Post, large preview -->
+              <div class="col-sm-12 blog-preview-item blog-preview-most-recent">
+                <!-- Ribbon from: http://livetools.uiparade.com/ribbon-builder.html -->
+                <div class="ribbon">
+                  <div class="ribbon-stitches-top"></div>
+                  <h1><strong class="ribbon-content">Newest!</strong></h1>
+                  <div class="ribbon-stitches-bottom"></div>
+                </div>
+                <a href="{{ url_for('blog.view_post', post_id=post.id, slug=post.slug) }}">
+                  <div class="caption">
+                    <div class="caption-content">
+                      <h1>Read More!</h1>
+                    </div>
+                  </div>
+
+                  <h3 class="index-blog-title">{{ post.title }}</h3>
+                  <p class="index-blog-caption">{{ post.body|safe|truncate(800)|markdown }}</p>
+                  <small class="index-blog-meta">
+                    {% with num_comments=post.comments|length %}
+                      {{ num_comments }} comment {%- if num_comments != 1 %}s{%- endif -%}
+                    {% endwith %} | {{ moment(post.created).calendar() }}
+                  </small>
+                </a>
+              </div>
+            </div>
+          {% endwith %}
+          <!-- Other recent posts -->
+          {% for post_row in frontpage_posts[1:]|batch(3) %}
+            <div class="row">
+              {% for post in post_row %}
+                <div class="col-sm-4 blog-preview-item">
+                  <a href="{{ url_for('blog.view_post', post_id=post.id, slug=post.slug) }}">
+                    <div class="caption">
+                      <div class="caption-content">
+                        <h1>Read More!</h1>
+                      </div>
+                    </div>
+
+                    <h3 class="index-blog-title">{{ post.title }}</h3>
+                    <p class="index-blog-caption">{{ post.body|safe|truncate(255)|markdown }}</p>
+                    <small class="index-blog-meta">
+                      {% with num_comments=post.comments|length %}
+                        {{ num_comments }} comment {%- if num_comments != 1 %}s{%- endif -%}
+                      {% endwith %} | {{ moment(post.created).calendar() }}
+                    </small>
+                  </a>
+                </div>
+              {% endfor %}
+            </div>
+          {% endfor %}
+          <h3 class="text-center"><a href="{{ url_for('blog.index') }}" class="underline-link">See More Posts!</a></h3>
+        {% else %}
+          <h3>No Posts Found... :(</h3>
+        {% endif %}
+      </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="index-project-preview">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <hr class="star-primary"/>
+          <h2 class="text-center">Projects</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4 col-sm-offset-2">
+          <p>
+            I haven't bothered to host anything useful here yet, but I will! Until then, go look at the stuff I've already
+            posted on Github! Or things I've done before on LinkedIn! And check the link below for the eventual fun!
+          </p>
+        </div>
+        <div class="col-sm-2 text-center">
+          <a target="_blank" href="http://www.github.com/kevincrane" class="social-navbar" title="Github">
+            <i class="fa fa-github"></i>
+          </a>
+        </div>
+        <div class="col-sm-2 text-center">
+          <a target="_blank" href="https://www.linkedin.com/in/thekevincrane" class="social-navbar" title="LinkedIn">
+            <i class="fa fa-linkedin"></i>
+          </a>
+        </div>
+      </div>
+      <div class="row">
+        <h3 class="text-center"><a href="{{ url_for('base.projects') }}" class="underline-link">See More Projects!</a></h3>
+      </div>
     </div>
-  </div>
+  </section>
+
+  <!-- About Me -->
+  <section id="index-aboutme-preview">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <hr class="star-primary"/>
+          <h2 class="text-center">About Me!</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <ul>
+            <li>Coding wordsmith</li>
+            <li>Regular kind of wordsmith</li>
+            <li>USC Trojan forever</li>
+            <li>Carnegie Mellon Tartan sometimes</li>
+            <li>Cat lover and tex-mex enthusiast</li>
+            <li>And if you just came here looking for a resume,
+              <a href="{{ url_for('static', filename='Kevin_Crane-Resume.pdf') }}" class="underline-link" target="_blank">look no further</a>!</li>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <h3 class="text-center"><a href="{{ url_for('base.about') }}" class="underline-link">See More About Me!</a></h3>
+      </div>
+    </div>
+  </section>
 {% endblock %}
