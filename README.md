@@ -21,3 +21,10 @@ Personal blog to write dumb things and show off projects.
     - Register a blueprint in \_\_init\_\_.py
     - Add to navbar (or a new dropdown)
     - ``` ./manage.py db migrate ``` (once after new models added)
+
+TODO:
+- Search indexing
+- SSL token
+- Change bootstrap CSS file (don't use Flatly theme, make smaller, customize pieces that are included)
+- Custom FontAwesome set (only choose icons I need, make smaller)
+- Occasional automated security screening (e.g. https://www.scanmyserver.com/)

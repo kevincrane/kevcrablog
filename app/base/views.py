@@ -38,7 +38,7 @@ def page_not_found(e):
     """
     return render_template('error/404.html'), 404
 
-@base.app_errorhandler(404)
+@base.app_errorhandler(500)
 def server_error(e):
     """ Error Code 500 Handler
     """

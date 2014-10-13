@@ -10,26 +10,27 @@
     <div id="post-preview-list">
       <h1>Posts</h1>
       {% if posts and posts.items %}
+        <!-- Generate a preview of each blog post -->
         {% for post in posts.items %}
-          <!-- Generate a preview of each blog post -->
-          <h2 class="post-preview-title">
-            <a href="{{ url_for('.view_post', post_id=post.id, slug=post.slug) }}" class="underline-link">
-              {{ post.title }}
+          <div itemscope itemtype="http://schema.org/BlogPosting">
+            <h2 class="post-preview-title" itemprop="name">
+              <a href="{{ url_for('.view_post', post_id=post.id, slug=post.slug) }}" class="underline-link" itemprop="url">
+                {{ post.title }}
+              </a>
+            </h2>
+            <p class="post-preview-body" itemprop="about">
+              {{ post.body|safe|truncate(255)|markdown(skip_images=True, skip_links=True) }}
+            </p>
+            <a class="post-preview-read" href="{{ url_for('.view_post', post_id=post.id, slug=post.slug) }}" itemprop="url">
+              Read More!
             </a>
-          </h2>
-          <p class="post-preview-body">{{ post.body|safe|truncate(255)|markdown }}</p>
-          {% if posts.page > 1 %}
-            <a class="post-preview-read" href="{{ url_for('.view_post', post_id=post.id,
-            slug=post.slug, prev_page=posts.page) }}">Read More!</a>
-          {% else %}
-            <a class="post-preview-read" href="{{ url_for('.view_post', post_id=post.id, slug=post.slug) }}">Read
-              More!</a>
-          {% endif %}
-          <small class="post-preview-created">Created <i>{{ moment(post.created).calendar() }}</i> |
-            {% with num_comments=post.comments|length %}
-              {{ num_comments }} comment {%- if num_comments != 1 %}s{%- endif -%}
-            {% endwith %}
-          </small>
+            <small class="post-preview-created">Created <i itemprop="datePublished">{{ moment(post.created).calendar() }}</i> |
+              {% with num_comments=post.comments|length %}
+              <span itemprop="commentCount">{{ num_comments }}</span> comment {%- if num_comments != 1 %}s{%- endif -%}
+              {% endwith %}
+            </small>
+            <meta itemprop="author" content="Kevin Crane"/>
+          </div>
           <hr/>
         {% endfor %}
 

@@ -1,4 +1,5 @@
-# robots.txt for http://www.thekevincrane.com (or http://www.kcrane.co http://www.kevincrane.co )
+# robots.txt for http://kcrane.co ( or http://www.thekevincrane.com http://www.kevincrane.co )
 
 User-agent: *
 Disallow: /admin/   # Authenticated stuff
+Sitemap: http://kcrane.co/sitemap.xml
