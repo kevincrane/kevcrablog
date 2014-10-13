@@ -7,31 +7,32 @@
 
 {% block blog_main %}
   <div class="well">
-    <div id="post-preview-list">
+    <div id="post-preview-list" itemscope itemtype="http://schema.org/Blog">
       <h1>Posts</h1>
       {% if posts and posts.items %}
         <!-- Generate a preview of each blog post -->
         {% for post in posts.items %}
-          <div itemscope itemtype="http://schema.org/BlogPosting">
-            <h2 class="post-preview-title" itemprop="name">
-              <a href="{{ url_for('.view_post', post_id=post.id, slug=post.slug) }}" class="underline-link" itemprop="url">
-                {{ post.title }}
-              </a>
-            </h2>
-            <p class="post-preview-body" itemprop="about">
-              {{ post.body|safe|truncate(255)|markdown(skip_images=True, skip_links=True) }}
-            </p>
-            <a class="post-preview-read" href="{{ url_for('.view_post', post_id=post.id, slug=post.slug) }}" itemprop="url">
-              Read More!
+        <div itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+          <h2 class="post-preview-title" itemprop="headline">
+            <a href="{{ url_for('.view_post', post_id=post.id, slug=post.slug) }}" class="underline-link" itemprop="url">
+              {{ post.title }}
             </a>
-            <small class="post-preview-created">Created <i itemprop="datePublished">{{ moment(post.created).calendar() }}</i> |
-              {% with num_comments=post.comments|length %}
-              <span itemprop="commentCount">{{ num_comments }}</span> comment {%- if num_comments != 1 %}s{%- endif -%}
-              {% endwith %}
-            </small>
-            <meta itemprop="author" content="Kevin Crane"/>
+          </h2>
+          <div class="post-preview-body" itemprop="description">
+            {{ post.body|safe|truncate(255)|markdown(skip_images=True, skip_links=True) }}
           </div>
-          <hr/>
+          <a class="post-preview-read" href="{{ url_for('.view_post', post_id=post.id, slug=post.slug) }}" itemprop="url">
+            Read More!
+          </a>
+          <small class="post-preview-created">Created <i itemprop="datePublished">{{ moment(post.created).calendar() }}</i> |
+            {% with num_comments=post.comments|length %}
+              {{ num_comments }} comment {%- if num_comments != 1 %}s{%- endif -%}
+              <meta itemprop="interactionCount" content="UserComments:{{ num_comments }}"/>
+            {% endwith %}
+          </small>
+          <meta itemprop="author" content="Kevin Crane"/>
+        </div>
+        <hr/>
         {% endfor %}
 
         <!-- Page Selector -->

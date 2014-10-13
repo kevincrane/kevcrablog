@@ -28,3 +28,5 @@ TODO:
 - Change bootstrap CSS file (don't use Flatly theme, make smaller, customize pieces that are included)
 - Custom FontAwesome set (only choose icons I need, make smaller)
 - Occasional automated security screening (e.g. https://www.scanmyserver.com/)
+- Change moment.js to just generic date data (12/24/2014)
+- Automatically backup DB data daily or weekly

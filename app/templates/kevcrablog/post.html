@@ -4,41 +4,44 @@
 {% import "macros/forms.html" as forms %}
 
 {% block blog_main %}
-  <div itemscope itemtype="http://schema.org/BlogPosting">
-    <div class="blog-post-view">
-      <h2 class="post-title" itemprop="name">{{ post.title }}</h2>
-      <small class="post-created">
-        Created <i itemprop="datePublished">{{ moment(post.created).calendar() }}</i> - <span itemprop="author">Kevin Crane</span>
-      </small>
-      <p class="post-body" itemprop="articleBody">{{ post.body|safe|markdown }}</p>
+  <div id="post-preview-list" itemscope itemtype="http://schema.org/Blog">
+    <div itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+      <div class="blog-post-view">
+        <h2 class="post-title" itemprop="headline">{{ post.title }}</h2>
+        <small class="post-created">
+          Created <i itemprop="datePublished">{{ moment(post.created).calendar() }}</i> - <span itemprop="author">Kevin Crane</span>
+        </small>
+        <div class="post-body" itemprop="articleBody">
+          {{ post.body|safe|markdown }}
+        </div>
+      </div>
+      <hr class="star-primary"/>
 
+      <!-- Comments -->
+      <h3>Comments</h3>
+      {% if post.comments %}
+        {% for comment in post.comments %}
+        <div itemprop="comment" itemscope itemtype="http://schema.org/UserComments">
+          <p itemprop="commentText">{{ comment.body }}</p>
+          <p>
+            - <strong itemprop="creator">{{ comment.author }}</strong>
+            - <small itemprop="commentTime">{{ moment(comment.created).calendar() }}</small>
+          </p>
+        </div>
+        {% endfor %}
+      {% else %}
+        <p><i>No Comments...</i></p>
+      {% endif %}
+
+      <hr>
+      <h2>Add a comment</h2>
+      <form action="" method="post">
+        {{ forms.render(form) }}
+        <div class="actions">
+          <input type="submit" class="btn primary" value="comment">
+        </div>
+      </form>
     </div>
-    <hr class="star-primary"/>
-
-    <!-- Comments -->
-    <h3>Comments</h3>
-    {% if post.comments %}
-      {% for comment in post.comments %}
-      <div itemscope itemtype="http://schema.org/UserComments">
-        <p itemprop="commentText">{{ comment.body }}</p>
-        <p>
-          - <strong itemprop="creator">{{ comment.author }}</strong>
-          - <small itemprop="commentTime">{{ moment(comment.created).calendar() }}</small>
-        </p>
-      </div>
-      {% endfor %}
-    {% else %}
-      <p><i>No Comments...</i></p>
-    {% endif %}
-
-    <hr>
-    <h2>Add a comment</h2>
-    <form action="" method="post">
-      {{ forms.render(form) }}
-      <div class="actions">
-        <input type="submit" class="btn primary" value="comment">
-      </div>
-    </form>
   </div>
 
 
