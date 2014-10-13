@@ -316,7 +316,8 @@ footer {
 /* Sidebar Index Style */
 .sidebar .list-group-item {
   background-color: #eaf5eb;
-  padding: 5px 10px; }
+  padding: 5px 10px;
+  border: 1px solid rgba(43, 65, 79, 0.5); }
 
 .sidebar-recent-posts {
   box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 5px; }
