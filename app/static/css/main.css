@@ -198,11 +198,11 @@ footer {
 .page-content {
   padding-top: 5em; }
 
-.underline-link {
+.underline-link, .blog-post-view a {
   color: #346a54;
   text-decoration: none;
   border-bottom: 1px dotted; }
-  .underline-link:hover, .underline-link:focus, .underline-link:active {
+  .underline-link:hover, .underline-link:focus, .underline-link:active, .blog-post-view a:hover, .blog-post-view a:focus, .blog-post-view a:active {
     color: #346a54;
     text-decoration: none;
     border-bottom: 1px solid; }
