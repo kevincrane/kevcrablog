@@ -46,7 +46,9 @@
                   </div>
 
                   <h3 class="index-blog-title">{{ post.title }}</h3>
-                  <p class="index-blog-caption">{{ post.body|safe|truncate(800)|markdown }}</p>
+                  <p class="index-blog-caption">
+                    {{ post.body|safe|truncate(800)|markdown(skip_images=True, skip_links=True) }}
+                  </p>
                   <small class="index-blog-meta">
                     {% with num_comments=post.comments|length %}
                       {{ num_comments }} comment {%- if num_comments != 1 %}s{%- endif -%}

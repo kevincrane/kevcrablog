@@ -435,6 +435,9 @@ footer {
   background-color: $color-background2;
   padding: 2em 2em;
   box-shadow: rgba(black, 0.3) 0px 0px 5px;
+  img {
+    width: 100%;
+  }
 }
 
 /* About Page */

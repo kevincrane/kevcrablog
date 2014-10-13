@@ -338,6 +338,8 @@ footer {
   background-color: #eaf5eb;
   padding: 2em 2em;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 5px; }
+  .blog-post-view img {
+    width: 100%; }
 
 /* About Page */
 .social-about {
