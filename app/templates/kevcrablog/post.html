@@ -15,6 +15,12 @@
           {{ post.body|safe|markdown }}
         </div>
       </div>
+
+      <!-- Social Buttons -->
+      <div class="row text-right">
+        {% include 'macros/social_share_buttons.html' %}
+      </div>
+
       <hr class="star-primary"/>
 
       <!-- Comments -->
