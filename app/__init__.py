@@ -46,7 +46,8 @@ def create_app(config='dev'):
     css_all = Bundle('css/bootstrap-flatly.min.css', 'css/highlightjs.min.css', 'css/font-awesome.css', 'css/main.css',
                      filters='cssmin', output='gen/style.css')
     js_all = Bundle('js/vendor/jquery.min.js', 'js/vendor/bootstrap.min.js', 'js/vendor/showdown-gfm.min.js',
-                    'js/vendor/highlight.min.js', 'js/main.js', filters='jsmin', output='gen/libs.js')
+                    'js/vendor/highlight.min.js', 'js/vendor/moment.min.js', 'js/main.js',
+                    filters='jsmin', output='gen/libs.js')
     assets.register('css_all', css_all)
     assets.register('js_all', js_all)
     if app.config['DEBUG']:
