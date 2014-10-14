@@ -7,7 +7,7 @@ base = Blueprint('base', __name__)
 
 
 @base.route('/')
-@cache.cached(timeout=600)
+@cache.cached(timeout=1800)
 def index():
     """ Main site index page
     """
@@ -16,7 +16,7 @@ def index():
 
 
 @base.route('/about')
-@cache.cached(timeout=600)
+@cache.cached(timeout=3600)
 def about():
     """ Display the About Me page
     """
@@ -24,7 +24,7 @@ def about():
 
 
 @base.route('/projects')
-@cache.cached(timeout=600)
+@cache.cached(timeout=3600)
 def projects():
     """ Display the Projects page
     """

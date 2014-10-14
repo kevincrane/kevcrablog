@@ -24,7 +24,7 @@ def sidebar():
 @blog.route('/')
 @blog.route('/index/', methods=['GET', 'POST'])
 @blog.route('/index/<int:page>', methods=['GET', 'POST'])
-@cache.cached(timeout=3000)
+@cache.cached(timeout=3600)
 def index(page=1):
     """ Display the main page of the blog with the most recent blog posts
         paginated and displayed
@@ -39,7 +39,7 @@ def index(page=1):
 
 
 @blog.route('/post/<int:post_id>-<slug>', methods=['GET', 'POST'])
-# @cache.cached(timeout=300)
+@cache.cached(timeout=3600)
 def view_post(post_id, slug):
     """ Display a full new post, with comments and view count
     :param int post_id: id number of post to display
