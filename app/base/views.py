@@ -7,6 +7,7 @@ base = Blueprint('base', __name__)
 
 
 @base.route('/')
+@cache.cached(timeout=600)
 def index():
     """ Main site index page
     """

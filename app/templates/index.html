@@ -2,6 +2,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div itemscope itemtype="http://schema.org/WebPage">
   <header>
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
@@ -18,35 +19,36 @@
   </header>
 
   <!-- Blog Posts -->
-  <section id="index-blog-preview">
-      <div class="row">
-        <div class="col-sm-12 text-center">
-          <hr class="star-primary"/>
-          <h2>Recent Blog Posts</h2>
-        </div>
+  <section id="index-blog-preview" itemscope itemtype="http://schema.org/Blog">
+    <div class="row">
+      <div class="col-sm-12 text-center">
+        <hr class="star-primary"/>
+        <h2 itemprop="headline">Recent Blog Posts</h2>
       </div>
-      <div class="row">
-        {% if frontpage_posts %}
-          {% with post=frontpage_posts[0] %}
-            <!-- Generate a preview of each blog post -->
-            <div class="row">
-              <!-- Newest Post, large preview -->
-              <div class="col-sm-12 blog-preview-item blog-preview-most-recent">
-                <!-- Ribbon from: http://livetools.uiparade.com/ribbon-builder.html -->
-                <div class="ribbon">
-                  <div class="ribbon-stitches-top"></div>
-                  <h1><strong class="ribbon-content">Newest!</strong></h1>
-                  <div class="ribbon-stitches-bottom"></div>
-                </div>
-                <a href="{{ url_for('blog.view_post', post_id=post.id, slug=post.slug) }}">
+    </div>
+    <div class="row">
+      {% if frontpage_posts %}
+        {% with post=frontpage_posts[0] %}
+          <!-- Generate a preview of each blog post -->
+          <div class="row">
+            <!-- Newest Post, large preview -->
+            <div class="col-sm-12 blog-preview-item blog-preview-most-recent">
+              <!-- Ribbon from: http://livetools.uiparade.com/ribbon-builder.html -->
+              <div class="ribbon">
+                <div class="ribbon-stitches-top"></div>
+                <h1><strong class="ribbon-content">Newest!</strong></h1>
+                <div class="ribbon-stitches-bottom"></div>
+              </div>
+              <div itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+                <a href="{{ url_for('blog.view_post', post_id=post.id, slug=post.slug) }}" itemprop="url">
                   <div class="caption">
                     <div class="caption-content">
                       <h1>Read More!</h1>
                     </div>
                   </div>
 
-                  <h3 class="index-blog-title">{{ post.title }}</h3>
-                  <p class="index-blog-caption">
+                  <h3 class="index-blog-title" itemprop="headline">{{ post.title }}</h3>
+                  <p class="index-blog-caption" itemprop="description">
                     {{ post.body|safe|truncate(800)|markdown(skip_images=True, skip_links=True) }}
                   </p>
                   <small class="index-blog-meta">
@@ -54,24 +56,27 @@
                       {{ num_comments }} comment {%- if num_comments != 1 %}s{%- endif -%}
                     {% endwith %} | {{ moment(post.created).calendar() }}
                   </small>
+                  <meta itemprop="author" content="Kevin Crane"/>
                 </a>
               </div>
             </div>
-          {% endwith %}
-          <!-- Other recent posts -->
-          {% for post_row in frontpage_posts[1:]|batch(3) %}
-            <div class="row">
-              {% for post in post_row %}
-                <div class="col-sm-4 blog-preview-item">
-                  <a href="{{ url_for('blog.view_post', post_id=post.id, slug=post.slug) }}">
+          </div>
+        {% endwith %}
+        <!-- Other recent posts -->
+        {% for post_row in frontpage_posts[1:]|batch(3) %}
+          <div class="row">
+            {% for post in post_row %}
+              <div class="col-sm-4 blog-preview-item">
+                <div itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+                  <a href="{{ url_for('blog.view_post', post_id=post.id, slug=post.slug) }}" itemprop="url">
                     <div class="caption">
                       <div class="caption-content">
                         <h1>Read More!</h1>
                       </div>
                     </div>
 
-                    <h3 class="index-blog-title">{{ post.title }}</h3>
-                    <p class="index-blog-caption">
+                    <h3 class="index-blog-title" itemprop="headline">{{ post.title }}</h3>
+                    <p class="index-blog-caption" itemprop="description">
                       {{ post.body|safe|truncate(255)|markdown(skip_images=True, skip_links=True) }}
                     </p>
                     <small class="index-blog-meta">
@@ -79,16 +84,18 @@
                         {{ num_comments }} comment {%- if num_comments != 1 %}s{%- endif -%}
                       {% endwith %} | {{ moment(post.created).calendar() }}
                     </small>
+                    <meta itemprop="author" content="Kevin Crane"/>
                   </a>
                 </div>
-              {% endfor %}
-            </div>
-          {% endfor %}
-          <h3 class="text-center"><a href="{{ url_for('blog.index') }}" class="underline-link">See More Posts!</a></h3>
-        {% else %}
-          <h3>No Posts Found... :(</h3>
-        {% endif %}
-      </div>
+              </div>
+            {% endfor %}
+          </div>
+        {% endfor %}
+        <h3 class="text-center"><a href="{{ url_for('blog.index') }}" class="underline-link" itemprop="url">See More Posts!</a></h3>
+      {% else %}
+        <h3>No Posts Found... :(</h3>
+      {% endif %}
+    </div>
   </section>
 
   <!-- Projects -->
@@ -119,7 +126,9 @@
         </div>
       </div>
       <div class="row">
-        <h3 class="text-center"><a href="{{ url_for('base.projects') }}" class="underline-link">See More Projects!</a></h3>
+        <h3 class="text-center"><a href="{{ url_for('base.projects') }}" class="underline-link" itemprop="significantLink">
+          See More Projects!
+        </a></h3>
       </div>
     </div>
   </section>
@@ -147,8 +156,12 @@
         </div>
       </div>
       <div class="row">
-        <h3 class="text-center"><a href="{{ url_for('base.about') }}" class="underline-link">See More About Me!</a></h3>
+        <h3 class="text-center"><a href="{{ url_for('base.about') }}" class="underline-link" itemprop="significantLink">
+          See More About Me!
+        </a></h3>
       </div>
     </div>
   </section>
+  <meta itemprop="author" content="Kevin Crane"/>
+</div>
 {% endblock %}

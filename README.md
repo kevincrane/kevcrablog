@@ -30,3 +30,4 @@ TODO:
 - Occasional automated security screening (e.g. https://www.scanmyserver.com/)
 - Change moment.js to just generic date data (12/24/2014)
 - Automatically backup DB data daily or weekly
+- Install Piwik on own server

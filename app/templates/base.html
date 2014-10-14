@@ -2,17 +2,21 @@
 <html>
 <head>
   {% if title %}
-    <title>{{ title }} - The Kevin Crane</title>
+    <title>{{ title }} | The Kevin Crane</title>
   {% else %}
     <title>The Kevin Crane</title>
   {% endif %}
   {% set active_page = active_page|default('index') -%}
-  <meta charset="utf-8">
+
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Kevin Crane's personal site for blogging and hosting fun side projects he builds.">
+  <meta name="keywords" content="kevin crane kcrane personal site blog projects"/>
+
+  <link type="text/plain" rel="author" href="/humans.txt" />
   <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 
   {% include 'macros/css.html' %}
-  <script src="{{ url_for('static', filename='js/vendor/jquery.min.js') }}"></script>
 </head>
 
 <body>
