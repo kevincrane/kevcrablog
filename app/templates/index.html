@@ -91,7 +91,9 @@
             {% endfor %}
           </div>
         {% endfor %}
-        <h3 class="text-center"><a href="{{ url_for('blog.index') }}" class="underline-link" itemprop="url">See More Posts!</a></h3>
+        <div class="col-sm-12 text-center">
+          <h3><a href="{{ url_for('blog.index') }}" class="underline-link" itemprop="url">See More Posts!</a></h3>
+        </div>
       {% else %}
         <h3>No Posts Found... :(</h3>
       {% endif %}
@@ -100,33 +102,33 @@
 
   <!-- Projects -->
   <section id="index-project-preview">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-12">
-          <hr class="star-primary"/>
-          <h2 class="text-center">Projects</h2>
-        </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <hr class="star-primary"/>
+        <h2 class="text-center">Projects</h2>
       </div>
-      <div class="row">
-        <div class="col-sm-4 col-sm-offset-2">
-          <p>
-            I haven't bothered to host anything useful here yet, but I will! Until then, go look at the stuff I've already
-            posted on Github! Or things I've done before on LinkedIn! And check the link below for the eventual fun!
-          </p>
-        </div>
-        <div class="col-sm-2 text-center">
-          <a target="_blank" href="http://www.github.com/kevincrane" class="social-navbar" title="Github">
-            <i class="fa fa-github"></i>
-          </a>
-        </div>
-        <div class="col-sm-2 text-center">
-          <a target="_blank" href="https://www.linkedin.com/in/thekevincrane" class="social-navbar" title="LinkedIn">
-            <i class="fa fa-linkedin"></i>
-          </a>
-        </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4 col-sm-offset-2">
+        <p>
+          I haven't bothered to host anything useful here yet, but I will! Until then, go look at the stuff I've already
+          posted on Github! Or things I've done before on LinkedIn! And check the link below for the eventual fun!
+        </p>
       </div>
-      <div class="row">
-        <h3 class="text-center"><a href="{{ url_for('base.projects') }}" class="underline-link" itemprop="significantLink">
+      <div class="col-sm-2 text-center">
+        <a target="_blank" href="http://www.github.com/kevincrane" class="social-navbar" title="Github">
+          <i class="fa fa-github"></i>
+        </a>
+      </div>
+      <div class="col-sm-2 text-center">
+        <a target="_blank" href="https://www.linkedin.com/in/thekevincrane" class="social-navbar" title="LinkedIn">
+          <i class="fa fa-linkedin"></i>
+        </a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 text-center">
+        <h3><a href="{{ url_for('base.projects') }}" class="underline-link" itemprop="significantLink">
           See More Projects!
         </a></h3>
       </div>
@@ -135,31 +137,29 @@
 
   <!-- About Me -->
   <section id="index-aboutme-preview">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-12">
-          <hr class="star-primary"/>
-          <h2 class="text-center">About Me!</h2>
-        </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <hr class="star-primary"/>
+        <h2 class="text-center">About Me!</h2>
       </div>
-      <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-          <ul>
-            <li>Coding wordsmith</li>
-            <li>Regular kind of wordsmith</li>
-            <li>USC Trojan forever</li>
-            <li>Carnegie Mellon Tartan sometimes</li>
-            <li>Cat lover and tex-mex enthusiast</li>
-            <li>And if you just came here looking for a resume,
-              <a href="{{ url_for('static', filename='Kevin-Crane-Resume.pdf') }}" class="underline-link" target="_blank">look no further</a>!</li>
-          </ul>
-        </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <ul>
+          <li>Coding wordsmith</li>
+          <li>Regular kind of wordsmith</li>
+          <li>USC Trojan forever</li>
+          <li>Carnegie Mellon Tartan sometimes</li>
+          <li>Cat lover and tex-mex enthusiast</li>
+          <li>And if you just came here looking for a resume,
+            <a href="{{ url_for('static', filename='Kevin-Crane-Resume.pdf') }}" class="underline-link" target="_blank">look no further</a>!</li>
+        </ul>
       </div>
-      <div class="row">
-        <h3 class="text-center"><a href="{{ url_for('base.about') }}" class="underline-link" itemprop="significantLink">
-          See More About Me!
-        </a></h3>
-      </div>
+    </div>
+    <div class="row">
+      <h3 class="text-center"><a href="{{ url_for('base.about') }}" class="underline-link" itemprop="significantLink">
+        See More About Me!
+      </a></h3>
     </div>
   </section>
   <meta itemprop="author" content="Kevin Crane"/>

@@ -25,6 +25,7 @@ Personal blog to write dumb things and show off projects.
 TODO:
 - Search indexing
 - SSL token
+- Email form to get updates about new posts
 - Change bootstrap CSS file (don't use Flatly theme, make smaller, customize pieces that are included)
 - Custom FontAwesome set (only choose icons I need, make smaller)
 - Occasional automated security screening (e.g. https://www.scanmyserver.com/)
