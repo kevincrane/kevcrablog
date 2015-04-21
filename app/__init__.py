@@ -3,6 +3,7 @@ import os
 
 from flask import Flask, url_for
 from flask.ext.admin import Admin
+from flask.ext.admin.contrib.sqla import ModelView
 from flask.ext.babel import Babel
 from flask.ext.debugtoolbar import DebugToolbarExtension
 from flask.ext.misaka import Misaka
@@ -17,7 +18,7 @@ cache = Cache(config={'CACHE_TYPE': 'simple'})
 from app.base import views as views_base
 from app.kevcrablog import views as views_blog
 
-from app.kevcrablog.models import Post
+from app.kevcrablog.models import Post, Comment
 from app.base.models import User
 from settings import BASE_DIR
 
@@ -70,6 +71,7 @@ def create_app(config='dev'):
     admin = Admin(app, index_view=AdminMain(endpoint='admin'))
     admin.add_view(PostAdminView())
     admin.add_view(NewPostView())
+    admin.add_view(ModelView(Comment, db.session))
     static_path = os.path.join(BASE_DIR, 'app', 'static')
     admin.add_view(FileAdminView(static_path, '/static/', name='Static Files'))
 
