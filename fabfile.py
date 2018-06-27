@@ -84,7 +84,7 @@ def configure():
 
         # TODO: set up non-Upstart option if upstart not available (probably in /etc/uwsgi/apps-available)
         sudo('cp %s/ops/thekevincrane_upstart.conf /etc/init/thekevincrane.conf' % env.proj_root)
-        sudo('cp %s/ops/thekevincrane_systemd.conf /etc/systemd/system/thekevincrane.service' % env.proj_root)
+        sudo('cp %s/ops/thekevincrane_systemd.service /etc/systemd/system/thekevincrane.service' % env.proj_root)
 
         sudo('certbot --nginx -d kcrane.co -n')  # set up Let's Encrypt
         sudo('cp %s/ops/certbot_renew.cron /etc/cron.monthly/certbot_renew' % env.proj_root)
