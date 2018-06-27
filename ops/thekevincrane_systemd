@@ -1,0 +1,10 @@
+[Unit]
+Description=Kevin Crane's Flask Blog
+
+[Service]
+Type=simple
+Environment="APP_ENV=prod"
+ExecStart=/usr/bin/uwsgi --emperor /etc/uwsgi/apps-enabled
+
+[Install]
+Alias=thekevincrane.service

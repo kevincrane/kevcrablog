@@ -7,7 +7,7 @@ from fabric.contrib.files import append
 from fabric.state import env
 
 
-env.hosts = ['thekevincrane.com']
+env.hosts = ['kcrane.co']
 env.user = 'kevin'
 env.proj_root = '/opt/sites/thekevincrane'
 env.activate = 'source %s/venv/bin/activate' % env.proj_root
@@ -46,10 +46,11 @@ def install():
 
     # Install packages
     print(cyan('Updating Ubuntu packages to most recent version...'))
+    sudo('add-apt-repository ppa:certbot/certbot')
     sudo('apt-get update && apt-get -y upgrade')
     print(cyan('Downloading important programs (servers and databases and python and shit)...'))
-    sudo('apt-get install  -y build-essential python python-dev git python-pip python-virtualenv '
-         'fail2ban postgresql postgresql-contrib libpq-dev nginx uwsgi uwsgi-plugin-python')
+    sudo('apt-get install  -y build-essential python python-dev git python-pip python-virtualenv fail2ban '
+         'python-certbot-nginx  postgresql postgresql-contrib libpq-dev nginx uwsgi uwsgi-plugin-python')
 
     # Configure log location
     print(cyan('Creating uwsgi log location...'))
@@ -77,10 +78,16 @@ def configure():
         sudo('rm -f /etc/nginx/sites-enabled/default')
         sudo('cp %s/ops/thekevincrane_nginx.conf /etc/nginx/sites-available/thekevincrane' % env.proj_root)
         sudo('ln -sf /etc/nginx/sites-available/thekevincrane /etc/nginx/sites-enabled/thekevincrane')
+
         sudo('cp %s/ops/thekevincrane_uwsgi.ini /etc/uwsgi/apps-available/thekevincrane.ini' % env.proj_root)
         sudo('ln -sf /etc/uwsgi/apps-available/thekevincrane.ini /etc/uwsgi/apps-enabled/thekevincrane.ini')
+
         # TODO: set up non-Upstart option if upstart not available (probably in /etc/uwsgi/apps-available)
         sudo('cp %s/ops/thekevincrane_upstart.conf /etc/init/thekevincrane.conf' % env.proj_root)
+        sudo('cp %s/ops/thekevincrane_systemd.conf /etc/systemd/system/thekevincrane.service' % env.proj_root)
+
+        sudo('certbot --nginx -d kcrane.co -n')  # set up Let's Encrypt
+        sudo('cp %s/ops/certbot_renew.cron /etc/cron.monthly/certbot_renew' % env.proj_root)
 
     # Set up Postgres and secret keys
     pg_uname, pg_pword = instance_config()
