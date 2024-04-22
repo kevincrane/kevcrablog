@@ -11,7 +11,7 @@ base = Blueprint('base', __name__)
 def index():
     """ Main site index page
     """
-    frontpage_posts = Post.query_all().slice(0, 3)
+    frontpage_posts = Post.query_all()[:4]  # TODO: used to use this, but breaks with 0 blog posts: .slice(0, 3)
     return render_template('index.html', frontpage_posts=frontpage_posts)
 
 
