@@ -3,7 +3,7 @@
     throughout the application
 """
 
-from flask.ext.sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy as SQLAlchemy
 
 # SQLAlchemy instance
 db = SQLAlchemy()

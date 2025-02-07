@@ -1,9 +1,9 @@
 from flask import flash, request, redirect, url_for
 import flask
-from flask.ext.admin import BaseView, expose, AdminIndexView
-from flask.ext.admin.contrib.fileadmin import FileAdmin
-from flask.ext.admin.contrib.sqla import ModelView
-from flask.ext.login import current_user, logout_user
+from flask_admin import BaseView, expose, AdminIndexView
+from flask_admin.contrib.fileadmin import FileAdmin
+from flask_admin.contrib.sqla import ModelView
+from flask_login import current_user, logout_user
 
 from app.core import db
 from app.kevcrablog.forms import PostForm

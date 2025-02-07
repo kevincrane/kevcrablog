@@ -2,15 +2,15 @@
 import os
 
 from flask import Flask, url_for
-from flask.ext.admin import Admin
-from flask.ext.admin.contrib.sqla import ModelView
-from flask.ext.babel import Babel
-from flask.ext.debugtoolbar import DebugToolbarExtension
-from flask.ext.misaka import Misaka
-from flask.ext.moment import Moment
-from flask.ext.user import UserManager, SQLAlchemyAdapter
-from flask.ext.cache import Cache  # TODO add caching
-from flask.ext.assets import Bundle, Environment
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
+from flask_babel import Babel
+from flask_debugtoolbar import DebugToolbarExtension
+from flask_misaka import Misaka
+from flask_moment import Moment
+from flask_user import UserManager, SQLAlchemyAdapter
+from flask_cache import Cache  # TODO add caching
+from flask_assets import Bundle, Environment
 from app.base.admin import AdminMain, PostAdminView, NewPostView, FileAdminView
 from app.core import db  # TODO: can you just move the one line from core.py to here (or below imports?)
 

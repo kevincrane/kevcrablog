@@ -1,4 +1,4 @@
-from flask.ext.user import UserMixin
+from flask_user import UserMixin as UserMixin
 
 from app.core import db
 

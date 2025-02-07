@@ -1,5 +1,5 @@
 from flask import Blueprint, flash, redirect, render_template, url_for, request
-from flask.ext.paginate import Pagination
+from flask_paginate import Pagination
 
 from app import cache
 from app.base.views import page_not_found
