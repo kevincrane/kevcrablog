@@ -8,14 +8,13 @@
   {% endif %}
   {% set active_page = active_page|default('index') -%}
 
+  {% include 'google_analytics.html' %}
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Kevin Crane's blog and personal playground for side projects. Updated as frequently
       as I can manage with new blog posts and links/demos of my own projects!">
   <meta name="keywords" content="kevin crane kcrane personal site blog projects"/>
 
-  <meta property="fb:admins" content="835885359"/>
-  <link rel="author" href="https://plus.google.com/+KevinCrane/about" title="Kevin Crane on Google+"/>
   <link rel="author" type="text/plain" href="/humans.txt" />
   <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 
@@ -43,15 +42,15 @@
       <div class="footer-col col-sm-5 col-sm-offset-1">
         <h3>Around the World</h3>
         <p>
-          From the Sunny Side of the Bay; Oakland, CA<br/>
-          &copy; 2014 Kevin Crane
+          Bay Area, CA<br/>
+          &copy; 2025 Kevin Crane
         </p>
       </div>
       <div class="footer-col col-sm-4">
         <h3>Around the Web</h3>
         <ul class="list-inline">
-          <li><a target="_blank" href="http://www.twitter.com/thekevincrane" title="Twitter">
-            <i class="fa fa-fw fa-twitter"></i></a>
+          <li><a target="_blank" href="https://bsky.app/profile/kcrane.co" title="Bluesky">
+            <i class="fa fa-fw fa-bluesky"></i></a>
           </li>
           <li><a target="_blank" href="http://www.github.com/kevincrane" class="social-navbar" title="Github">
             <i class="fa fa-fw fa-github"></i></a>

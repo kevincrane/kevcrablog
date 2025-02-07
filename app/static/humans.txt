@@ -3,8 +3,8 @@
 
 /* TEAM */
 Name:       Kevin Crane
-Twitter:    @thekevincrane
-Location:   Oakland, CA, United States
+Bluesky:    @kcrane.co, kcrane.bsky.social
+Location:   Bay Area, CA, United States
 
 /* SITE */
 Last updated: 2015/04/21
